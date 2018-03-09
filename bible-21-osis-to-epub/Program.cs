@@ -10,6 +10,8 @@ namespace BibleDoEpubu
     public static void Main(string[] args)
     {
       Bible bible = Parser.NacistBibli(args.First());
+
+      EpubGenerator.VygenerovatEpub(bible);
     }
 
     #endregion

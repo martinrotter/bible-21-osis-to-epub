@@ -12,7 +12,9 @@ namespace BibleDoEpubu
       XmlDocument xml = new XmlDocument();
       xml.Load(xmlOsisSoubor);
 
-      return null;
+      Bible bible = new Bible();
+
+      return bible;
     }
 
     #endregion

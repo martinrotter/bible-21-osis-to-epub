@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EpubGenerator.cs" />
     <Compile Include="ObjektovyModel\Bible.cs" />
     <Compile Include="ObjektovyModel\CastKnihy.cs" />
     <Compile Include="ObjektovyModel\CastTextu.cs" />
