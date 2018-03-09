@@ -42,6 +42,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ObjektovyModel\Bible.cs" />
+    <Compile Include="ObjektovyModel\CastKnihy.cs" />
+    <Compile Include="ObjektovyModel\CastTextu.cs" />
+    <Compile Include="ObjektovyModel\CastTextuSTextem.cs" />
+    <Compile Include="ObjektovyModel\HlavniCastKnihy.cs" />
+    <Compile Include="ObjektovyModel\Odstavec.cs" />
+    <Compile Include="ObjektovyModel\Poezie.cs" />
+    <Compile Include="ObjektovyModel\RadekPoezie.cs" />
+    <Compile Include="ObjektovyModel\UvodKapitoly.cs" />
+    <Compile Include="ObjektovyModel\Kniha.cs" />
+    <Compile Include="ObjektovyModel\Metadata.cs" />
+    <Compile Include="ObjektovyModel\Revize.cs" />
+    <Compile Include="ObjektovyModel\Vers.cs" />
+    <Compile Include="Parser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
