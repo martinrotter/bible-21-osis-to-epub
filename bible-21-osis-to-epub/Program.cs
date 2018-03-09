@@ -1,4 +1,4 @@
-﻿namespace bible_21_osis_to_epub
+﻿namespace BibleDoEpubu
 {
   public class Program
   {
