@@ -178,6 +178,23 @@ namespace BibleDoEpubu
                 // Konec verše, zatím se neřeší.
               }
             }
+            else if (xmlPotomek.Name == "l")
+            {
+              RadekPoezie radekPoezie = new RadekPoezie();
+
+              rodic.PridatPotomka(radekPoezie);
+              rodice.Add(radekPoezie);
+              xmlProRodice.Add(xmlPotomek.ChildNodes.OfType<XmlNode>().ToList());
+            }
+            else if (xmlPotomek.Name == "note")
+            {
+              // Poznámka (pod čarou).
+              Poznamka poznamka = new Poznamka();
+
+              rodic.PridatPotomka(poznamka);
+              rodice.Add(poznamka);
+              xmlProRodice.Add(xmlPotomek.ChildNodes.OfType<XmlNode>().ToList());
+            }
             else
             {
 

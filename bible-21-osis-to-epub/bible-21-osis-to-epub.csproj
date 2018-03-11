@@ -51,6 +51,7 @@
     <Compile Include="ObjektovyModel\HlavniCastKnihy.cs" />
     <Compile Include="ObjektovyModel\Odstavec.cs" />
     <Compile Include="ObjektovyModel\Poezie.cs" />
+    <Compile Include="ObjektovyModel\Poznamka.cs" />
     <Compile Include="ObjektovyModel\RadekPoezie.cs" />
     <Compile Include="ObjektovyModel\UvodKapitoly.cs" />
     <Compile Include="ObjektovyModel\Kniha.cs" />
