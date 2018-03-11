@@ -2,14 +2,9 @@
 {
   internal class CastTextuSTextem : CastTextu
   {
-    #region Vlastnosti
-
-    public string TextovaData
+    public override string PrevestNaHtml()
     {
-      get;
-      set;
+      return TextovaData;
     }
-
-    #endregion
   }
 }

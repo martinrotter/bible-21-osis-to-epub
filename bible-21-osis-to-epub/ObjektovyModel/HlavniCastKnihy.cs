@@ -8,5 +8,5 @@
   /// </remarks>
   internal class HlavniCastKnihy : CastKnihy
   {
-    }
+  }
 }
