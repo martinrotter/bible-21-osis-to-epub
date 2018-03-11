@@ -51,11 +51,8 @@ namespace BibleDoEpubu
       {
         Kniha k = NacistKnihu(kniha);
         bible.Knihy.Add(k);
-        break;
       }
-
-
-
+      
       return bible;
     }
 
@@ -124,6 +121,20 @@ namespace BibleDoEpubu
               xmlPotomek.Name == "div" && xmlPotomekElem.HasAttribute("type") &&
               xmlPotomek.Attributes["type"].InnerText == "section")
             {
+              CastKnihy castKnihy = new CastKnihy()
+              {
+                Nadpis = xmlPotomek.SelectSingleNode("os:title", NsManager).InnerText
+              };
+
+              rodic.PridatPotomka(castKnihy);
+              rodice.Add(castKnihy);
+              xmlProRodice.Add(xmlPotomek.ChildNodes.OfType<XmlNode>().ToList());
+            }
+            else if (
+              xmlPotomek.Name == "div" && xmlPotomekElem.HasAttribute("type") &&
+              xmlPotomek.Attributes["type"].InnerText == "preface")
+            {
+              // Předmluva.
               CastKnihy castKnihy = new CastKnihy()
               {
                 Nadpis = xmlPotomek.SelectSingleNode("os:title", NsManager).InnerText
@@ -214,6 +225,15 @@ namespace BibleDoEpubu
 
               rodic.PridatPotomka(formatovaniTextu);
               rodice.Add(formatovaniTextu);
+              xmlProRodice.Add(xmlPotomek.ChildNodes.OfType<XmlNode>().ToList());
+            }
+            else if (xmlPotomek.Name == "head")
+            {
+              // Poznámka (pod čarou).
+              CastPoezie castPoezie = new CastPoezie();
+
+              rodic.PridatPotomka(castPoezie);
+              rodice.Add(castPoezie);
               xmlProRodice.Add(xmlPotomek.ChildNodes.OfType<XmlNode>().ToList());
             }
             else
