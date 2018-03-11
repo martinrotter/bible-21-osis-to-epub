@@ -6,8 +6,17 @@ namespace BibleDoEpubu
   {
     #region Metody
 
-    public static void VygenerovatEpub(Bible bible)
+    public EpubGenerator()
     {
+
+    }
+
+    public string VygenerovatEpub(Bible bible)
+    {
+      // Vygenerujeme úvodní texty, titulní obrázek,
+      // úvodní nakladatelské informace, seznam knih.
+
+      return null;
     }
 
     #endregion

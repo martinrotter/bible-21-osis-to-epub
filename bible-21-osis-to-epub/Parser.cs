@@ -10,38 +10,44 @@ namespace BibleDoEpubu
 {
   internal class Parser
   {
+    private XmlNamespaceManager NsManager
+    {
+      get;
+      set;
+    }
+
     #region Metody
 
-    public static Bible NacistBibli(string xmlOsisSoubor)
+    public Bible NacistBibli(string xmlOsisSoubor)
     {
       XmlDocument xml = new XmlDocument();
-      XmlNamespaceManager ns = VygenerovatNamespaceManager(xml);
+      NsManager = VygenerovatNamespaceManager(xml);
 
       xml.Load(xmlOsisSoubor);
 
-      XmlNode osisText = xml.SelectSingleNode("/os:osis/os:osisText", ns);
+      XmlNode osisText = xml.SelectSingleNode("/os:osis/os:osisText", NsManager);
 
       Bible bible = new Bible()
       {
         Revize = new Revize()
         {
           Datum = DateTime.ParseExact(
-            osisText?.SelectSingleNode("os:header/os:revisionDesc/os:date", ns)?.InnerText,
+            osisText?.SelectSingleNode("os:header/os:revisionDesc/os:date", NsManager)?.InnerText,
             "yyyy.M.d",
             CultureInfo.InvariantCulture),
-          Popis = osisText?.SelectSingleNode("os:header/os:revisionDesc/os:p", ns)?.InnerText
+          Popis = osisText?.SelectSingleNode("os:header/os:revisionDesc/os:p", NsManager)?.InnerText
         },
         Metadata = new Metadata()
         {
-          Copyright = osisText?.SelectSingleNode("os:header/os:work/os:rights", ns)?.InnerText,
-          Isbn = osisText?.SelectSingleNode("os:header/os:work/os:identifier", ns)?.InnerText,
-          Nazev = osisText?.SelectSingleNode("os:header/os:work/os:title", ns)?.InnerText,
-          Vydavatel = osisText?.SelectSingleNode("os:header/os:work/os:publisher", ns)?.InnerText
+          Copyright = osisText?.SelectSingleNode("os:header/os:work/os:rights", NsManager)?.InnerText,
+          Isbn = osisText?.SelectSingleNode("os:header/os:work/os:identifier", NsManager)?.InnerText,
+          Nazev = osisText?.SelectSingleNode("os:header/os:work/os:title", NsManager)?.InnerText,
+          Vydavatel = osisText?.SelectSingleNode("os:header/os:work/os:publisher", NsManager)?.InnerText
         }
       };
 
       // Provedeme načtení knih.
-      foreach (XmlNode kniha in osisText?.SelectNodes("//os:div[@type='book']", ns))
+      foreach (XmlNode kniha in osisText?.SelectNodes("//os:div[@type='book']", NsManager))
       {
         Kniha k = NacistKnihu(kniha);
         bible.Knihy.Add(k);
@@ -53,6 +59,10 @@ namespace BibleDoEpubu
       return bible;
     }
 
+    public Parser()
+    {
+    }
+
     private static XmlNamespaceManager VygenerovatNamespaceManager(XmlDocument xml)
     {
       XmlNamespaceManager ns = new XmlNamespaceManager(xml.NameTable);
@@ -62,10 +72,9 @@ namespace BibleDoEpubu
       return ns;
     }
 
-    private static Kniha NacistKnihu(XmlNode xml)
+    private Kniha NacistKnihu(XmlNode xml)
     {
       Kniha kniha = new Kniha();
-      XmlNamespaceManager ns = VygenerovatNamespaceManager(xml.OwnerDocument);
 
       kniha.Id = xml.SelectSingleNode("@osisID").InnerText;
 
@@ -103,7 +112,7 @@ namespace BibleDoEpubu
               // Máme major section.
               HlavniCastKnihy hlavniCast = new HlavniCastKnihy
               {
-                Nadpis = xmlPotomek.SelectSingleNode("os:title", ns).InnerText
+                Nadpis = xmlPotomek.SelectSingleNode("os:title", NsManager).InnerText
               };
 
 
@@ -117,7 +126,7 @@ namespace BibleDoEpubu
             {
               CastKnihy castKnihy = new CastKnihy()
               {
-                Nadpis = xmlPotomek.SelectSingleNode("os:title", ns).InnerText
+                Nadpis = xmlPotomek.SelectSingleNode("os:title", NsManager).InnerText
               };
 
               rodic.PridatPotomka(castKnihy);
@@ -148,7 +157,7 @@ namespace BibleDoEpubu
               {
                 UvodKapitoly uvodKapitoly = new UvodKapitoly()
                 {
-                  Id = xmlPotomek.SelectSingleNode("@osisID", ns).InnerText
+                  Id = xmlPotomek.SelectSingleNode("@osisID", NsManager).InnerText
                 };
 
                 rodic.PridatPotomka(uvodKapitoly);
@@ -166,7 +175,7 @@ namespace BibleDoEpubu
               {
                 Vers vers = new Vers()
                 {
-                  Id = xmlPotomek.SelectSingleNode("@osisID", ns).InnerText
+                  Id = xmlPotomek.SelectSingleNode("@osisID", NsManager).InnerText
                 };
 
                 rodic.PridatPotomka(vers);
@@ -193,6 +202,18 @@ namespace BibleDoEpubu
 
               rodic.PridatPotomka(poznamka);
               rodice.Add(poznamka);
+              xmlProRodice.Add(xmlPotomek.ChildNodes.OfType<XmlNode>().ToList());
+            }
+            else if (xmlPotomek.Name == "i")
+            {
+              // Poznámka (pod čarou).
+              FormatovaniTextu formatovaniTextu = new FormatovaniTextu()
+              {
+                Kurziva = true
+              };
+
+              rodic.PridatPotomka(formatovaniTextu);
+              rodice.Add(formatovaniTextu);
               xmlProRodice.Add(xmlPotomek.ChildNodes.OfType<XmlNode>().ToList());
             }
             else

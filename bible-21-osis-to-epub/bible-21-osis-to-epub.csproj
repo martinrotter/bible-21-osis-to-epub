@@ -48,6 +48,7 @@
     <Compile Include="ObjektovyModel\CastKnihy.cs" />
     <Compile Include="ObjektovyModel\CastTextu.cs" />
     <Compile Include="ObjektovyModel\CastTextuSTextem.cs" />
+    <Compile Include="ObjektovyModel\FormatovaniTextu.cs" />
     <Compile Include="ObjektovyModel\HlavniCastKnihy.cs" />
     <Compile Include="ObjektovyModel\Odstavec.cs" />
     <Compile Include="ObjektovyModel\Poezie.cs" />
