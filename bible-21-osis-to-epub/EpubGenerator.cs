@@ -12,6 +12,12 @@ namespace BibleDoEpubu
 {
   internal class EpubGenerator
   {
+    private List<PouzitaPoznamka> PouzitePoznamky
+    {
+      get;
+      set;
+    } = new List<PouzitaPoznamka>();
+
     #region Metody
 
     public string VygenerovatKnihu(Kniha kniha, Bible bible, bool dlouheCislaVerse)
@@ -66,7 +72,22 @@ namespace BibleDoEpubu
       }
       else if (cast is Poznamka)
       {
-        return string.Empty;
+        StringBuilder stavec = new StringBuilder();
+
+        foreach (CastTextu potomek in cast.Potomci)
+        {
+          stavec.Append(VygenerovatCastTextu(potomek, kniha, bible, dlouheCislaVerse));
+        }
+
+        PouzitaPoznamka poznamka = new PouzitaPoznamka()
+        {
+          Text = stavec.ToString(),
+          Id = $"pozn-{PouzitePoznamky.Count + 1}"
+        };
+
+        PouzitePoznamky.Add(poznamka);
+
+        return $"<sup><a href=\"kniha-XX-poznamky.html#{poznamka.Id}\" epub:type=\"noteref\">[{PouzitePoznamky.Count}]</a></sup>";
       }
       else if (cast is Poezie)
       {
@@ -219,7 +240,18 @@ namespace BibleDoEpubu
         pocitadloKnih++;
       }
 
-      // Kopírujeme a generujeme podpůrne soubory.
+      // Připravíme sumář poznámek pod čarou.
+      string sumarPoznamek = Properties.Resources.kniha_XX_poznamky;
+
+      sumarPoznamek = string.Format(
+        sumarPoznamek,
+        string.Join(
+          "\n",
+          PouzitePoznamky.Select((pozn, idx) => $"<p id=\"{pozn.Id}\" epub:type=\"endnote\">[{idx + 1}] {pozn.Text}</p>")));
+
+      File.WriteAllText(Path.Combine(htmlAdresar, "kniha-XX-poznamky.html"), sumarPoznamek, Encoding.UTF8);
+
+      // Kopírujeme a generujeme podpůrné soubory.
       File.WriteAllText(Path.Combine(cssAdresar, "kniha.css"), Properties.Resources.kniha_css);
       File.WriteAllBytes(Path.Combine(epubAdresar, "mimetype"), Properties.Resources.mimetype);
       File.WriteAllText(Path.Combine(metaAdresar, "container.xml"), Properties.Resources.container);
