@@ -12,9 +12,15 @@
         <item href="img/logo.png" id="logo.png" media-type="image/png"/>
         <item href="img/cover.png" id="cover.png" media-type="image/png"/>
         <item href="css/kniha.css" id="kniha.css" media-type="text/css"/>
+        <item href="html/kniha-0-uvod.html" id="id-kniha-0-uvod.html" media-type="application/xhtml+xml"/>
         {2}
     </manifest>
-    <spine toc="ncx">
+    <spine>
+        <itemref idref="id-kniha-0-uvod.html"/>
         {3}
     </spine>
+    <guide>
+        <reference href="html/kniha-0-uvod.html" title="Cover" type="cover"/>
+        <reference href="{4}" title="{5}" type="text"/>
+    </guide>
 </package>

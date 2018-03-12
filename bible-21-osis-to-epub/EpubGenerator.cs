@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 using BibleDoEpubu.ObjektovyModel;
 using ICSharpCode.SharpZipLib.Zip;
@@ -81,9 +82,17 @@ namespace BibleDoEpubu
         bible.Metadata.Nazev,
         bible.Revize.Datum.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
         string.Join("\n", manifesty),
-        string.Join("\n", spine));
+        string.Join("\n", spine),
+        $"html/kniha-{1}-{bible.Knihy.First().Id}.html",
+        bible.MapovaniZkratekKnih[bible.Knihy.First().Id]);
 
       File.WriteAllText(Path.Combine(obsahAdresar, "content.opf"), obsahOpf);
+
+      // Generování úvodního souboru.
+      string uvodniSoubor = Properties.Resources.kniha_00_uvod;
+
+      uvodniSoubor = string.Format(uvodniSoubor, bible.Metadata.Nazev, bible.Revize.Datum.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
+      File.WriteAllText(Path.Combine(htmlAdresar, "kniha-0-uvod.html"), uvodniSoubor, Encoding.UTF8);
 
       // Konverze zip -> epub.
       FastZip zip = new FastZip();

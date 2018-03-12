@@ -98,5 +98,8 @@
   <ItemGroup>
     <None Include="Resources\kniha.css" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kniha-00-uvod.html" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

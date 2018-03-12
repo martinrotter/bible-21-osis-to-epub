@@ -119,6 +119,15 @@ namespace BibleDoEpubu.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string kniha_00_uvod {
+            get {
+                return ResourceManager.GetString("kniha_00_uvod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to p {
         ///  text-align: justify;
         ///}
