@@ -119,7 +119,29 @@ namespace BibleDoEpubu.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;no&quot;?&gt;
+        ///
+        ///&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1//EN&quot;
+        ///&quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;
+        ///
+        ///&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+        ///&lt;head&gt;
+        ///  &lt;title&gt;{0}&lt;/title&gt;
+        ///  &lt;link href=&quot;../css/kniha.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;/&gt;
+        ///&lt;/head&gt;
+        ///
+        ///&lt;body&gt;
+        ///&lt;div&gt;
+        ///  &lt;img alt=&quot;Obálka&quot; src=&quot;../img/cover.png&quot; style=&quot;width:100%&quot;/&gt;
+        ///&lt;/div&gt;
+        ///
+        ///&lt;div class=&quot;sgc-1&quot;&gt;
+        ///  &lt;img alt=&quot;{0}&quot; src=&quot;../img/logo.png&quot;/&gt;
+        ///&lt;/div&gt;
+        ///
+        ///&lt;p style=&quot;text-align: left;&quot;&gt;
+        ///  {0}&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
+        ///  Au [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string kniha_00_uvod {
             get {

@@ -14,6 +14,158 @@ namespace BibleDoEpubu
   {
     #region Metody
 
+    public string VygenerovatKnihu(Kniha kniha, Bible bible, bool dlouheCislaVerse)
+    {
+      return VygenerovatCastTextu(kniha, kniha, bible, dlouheCislaVerse);
+    }
+
+    private string VygenerovatCastTextu(CastTextu cast, Kniha kniha, Bible bible, bool dlouheCislaVerse)
+    {
+      if (cast is HlavniCastKnihy)
+      {
+        StringBuilder stavec = new StringBuilder();
+
+        stavec.Append($"<h2>{(cast as HlavniCastKnihy).Nadpis}</h2>\n");
+
+        foreach (CastTextu potomek in cast.Potomci)
+        {
+          stavec.Append(VygenerovatCastTextu(potomek, kniha, bible, dlouheCislaVerse));
+        }
+
+        return stavec.ToString();
+      }
+      else if (cast is CastKnihy)
+      {
+        StringBuilder stavec = new StringBuilder();
+
+        stavec.Append($"<h4>{(cast as CastKnihy).Nadpis}</h4>\n");
+
+        foreach (CastTextu potomek in cast.Potomci)
+        {
+          stavec.Append(VygenerovatCastTextu(potomek, kniha, bible, dlouheCislaVerse));
+        }
+
+        return stavec.ToString();
+      }
+      else if (cast is UvodKapitoly)
+      {
+        return $"<h3>Kapitola {ZiskatKratkeCisloVerse((cast as UvodKapitoly).Id)}</h3>\n";
+      }
+      else if (cast is Vers)
+      {
+        StringBuilder stavec = new StringBuilder();
+
+        stavec.Append($"<sup>{(dlouheCislaVerse ? ZiskatDlouheCisloVerse((cast as Vers).Id) : ZiskatKratkeCisloVerse((cast as Vers).Id))}</sup>");
+
+        foreach (CastTextu potomek in cast.Potomci)
+        {
+          stavec.Append(VygenerovatCastTextu(potomek, kniha, bible, dlouheCislaVerse));
+        }
+
+        return stavec.ToString();
+      }
+      else if (cast is Poznamka)
+      {
+        return string.Empty;
+      }
+      else if (cast is Poezie)
+      {
+        StringBuilder stavec = new StringBuilder();
+
+        stavec.Append("<p class=\"poezie\">");
+
+        foreach (CastTextu potomek in cast.Potomci)
+        {
+          stavec.Append(VygenerovatCastTextu(potomek, kniha, bible, dlouheCislaVerse));
+        }
+
+        stavec.Append("</p>");
+
+        return stavec.ToString();
+      }
+      else if (cast is RadekPoezie)
+      {
+        StringBuilder stavec = new StringBuilder();
+
+        foreach (CastTextu potomek in cast.Potomci)
+        {
+          stavec.Append(VygenerovatCastTextu(potomek, kniha, bible, dlouheCislaVerse));
+        }
+
+        stavec.Append("<br/>");
+
+        return stavec.ToString();
+      }
+      else if (cast is Odstavec)
+      {
+        StringBuilder stavec = new StringBuilder();
+
+        stavec.Append("<p>");
+
+        foreach (CastTextu potomek in cast.Potomci)
+        {
+          stavec.Append(VygenerovatCastTextu(potomek, kniha, bible, dlouheCislaVerse));
+        }
+
+        stavec.Append("</p>");
+
+        return stavec.ToString();
+      }
+      else if (cast is FormatovaniTextu)
+      {
+        StringBuilder stavec = new StringBuilder();
+
+        if ((cast as FormatovaniTextu).Kurziva)
+        {
+          stavec.Append("<span class=\"kurziva\">");
+        }
+
+        foreach (CastTextu potomek in cast.Potomci)
+        {
+          stavec.Append(VygenerovatCastTextu(potomek, kniha, bible, dlouheCislaVerse));
+        }
+
+        stavec.Append("</span>");
+
+        return stavec.ToString();
+      }
+      else if (cast is CastPoezie)
+      {
+        return $"<h5>{cast.TextovaData}</h5>\n";
+      }
+      else if (cast is CastTextuSTextem)
+      {
+        return cast.TextovaData;
+      }
+      else
+      {
+        StringBuilder stavec = new StringBuilder();
+
+        foreach (CastTextu potomek in cast.Potomci)
+        {
+          stavec.Append(VygenerovatCastTextu(potomek, kniha, bible, dlouheCislaVerse));
+        }
+
+        return stavec.ToString();
+      }
+    }
+
+    private static string ZiskatKratkeCisloVerse(string id)
+    {
+      return id.Substring(id.LastIndexOf('.') + 1);
+    }
+
+    private static string ZiskatDlouheCisloVerse(string id)
+    {
+      StringBuilder bldr = new StringBuilder(id)
+      {
+        [id.IndexOf('.')] = ' ',
+        [id.LastIndexOf('.')] = ':'
+      };
+
+      return bldr.ToString();
+    }
+
     public string VygenerovatEpub(Bible bible)
     {
       string pracovniAdresar = Environment.CurrentDirectory;
@@ -54,7 +206,7 @@ namespace BibleDoEpubu
         string nazevSouboruKnihy = $"kniha-{pocitadloKnih}-{kniha.Id}.html";
         string souborKnihy = Path.Combine(htmlAdresar, nazevSouboruKnihy);
         string htmlMustr = Properties.Resources.kniha.Clone() as string;
-        string htmlObsah = kniha.PrevestNaHtml();
+        string htmlObsah = VygenerovatKnihu(kniha, bible, true);
 
         htmlObsah = $"<h1>{bible.MapovaniZkratekKnih[kniha.Id]}</h1>" + htmlObsah;
         htmlObsah = string.Format(htmlMustr, bible.MapovaniZkratekKnih[kniha.Id], htmlObsah);

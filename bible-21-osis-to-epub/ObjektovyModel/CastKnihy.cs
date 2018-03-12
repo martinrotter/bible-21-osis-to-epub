@@ -20,14 +20,5 @@
     }
 
     #endregion
-
-    #region Metody
-
-    public override string PrevestNaHtml()
-    {
-      return $"<h4>{Nadpis}</h4>\n" + base.PrevestNaHtml();
-    }
-
-    #endregion
   }
 }

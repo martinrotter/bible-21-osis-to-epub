@@ -21,14 +21,5 @@
     }
 
     #endregion
-
-    #region Metody
-
-    public override string PrevestNaHtml()
-    {
-      return $"<h3>{Id}</h3>\n";
-    }
-
-    #endregion
   }
 }

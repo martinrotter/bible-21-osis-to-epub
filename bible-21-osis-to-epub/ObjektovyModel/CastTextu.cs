@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Text;
 
 namespace BibleDoEpubu.ObjektovyModel
 {
@@ -41,27 +40,6 @@ namespace BibleDoEpubu.ObjektovyModel
     {
       Potomci.Remove(potomek);
       potomek.Rodic = null;
-    }
-
-    /// <summary>
-    ///   Vrátí HTML/XML reprezentaci tohoto kousku textu.
-    /// </summary>
-    /// <remarks>
-    ///   Například pro verš vrátí jeho text.
-    /// </remarks>
-    /// <returns>
-    ///   Vrátí HTML/XML reprezentaci tohoto kousku textu.
-    /// </returns>
-    public virtual string PrevestNaHtml()
-    {
-      StringBuilder stavec = new StringBuilder();
-
-      foreach (CastTextu potomek in Potomci)
-      {
-        stavec.Append(potomek.PrevestNaHtml());
-      }
-
-      return stavec.ToString();
     }
 
     #endregion

@@ -17,21 +17,5 @@
     }
 
     #endregion
-
-    #region Metody
-
-    public override string PrevestNaHtml()
-    {
-      if (Kurziva)
-      {
-        return $"<span class=\"kurziva\">{base.PrevestNaHtml()}</span>";
-      }
-      else
-      {
-        return base.PrevestNaHtml();
-      }
-    }
-
-    #endregion
   }
 }
