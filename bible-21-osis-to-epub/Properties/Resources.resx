@@ -130,9 +130,6 @@
   <data name="kniha" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\kniha.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="kniha_00_uvod" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\kniha-00-uvod.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="kniha_css" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\kniha.css;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
@@ -144,5 +141,11 @@
   </data>
   <data name="mimetype" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mimetype;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="kniha_0_cover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\kniha-0-cover.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="kniha_0_uvod" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\kniha-0-uvod.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

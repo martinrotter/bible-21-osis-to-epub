@@ -82,6 +82,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -104,6 +105,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\kniha-XX-poznamky.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kniha-0-cover.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kniha-0-uvod.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

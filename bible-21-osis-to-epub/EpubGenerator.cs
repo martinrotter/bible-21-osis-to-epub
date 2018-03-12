@@ -273,10 +273,11 @@ namespace BibleDoEpubu
       File.WriteAllText(Path.Combine(obsahAdresar, "content.opf"), obsahOpf);
 
       // Generování úvodního souboru.
-      string uvodniSoubor = Properties.Resources.kniha_00_uvod;
+      string uvodniSoubor = Properties.Resources.kniha_0_uvod;
 
       uvodniSoubor = string.Format(uvodniSoubor, bible.Metadata.Nazev, bible.Revize.Datum.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
       File.WriteAllText(Path.Combine(htmlAdresar, "kniha-0-uvod.html"), uvodniSoubor, Encoding.UTF8);
+      File.WriteAllText(Path.Combine(htmlAdresar, "kniha-0-cover.html"), Properties.Resources.kniha_0_cover, Encoding.UTF8);
 
       // Konverze zip -> epub.
       FastZip zip = new FastZip();

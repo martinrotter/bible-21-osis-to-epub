@@ -101,7 +101,7 @@ namespace BibleDoEpubu.Properties {
         ///&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1//EN&quot;
         ///&quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;
         ///
-        ///&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+        ///&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xmlns:epub=&quot;http://www.idpf.org/2007/ops&quot;&gt;
         ///&lt;head&gt;
         ///  &lt;title&gt;{0}&lt;/title&gt;
         ///  &lt;link href=&quot;../css/kniha.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;/&gt;
@@ -124,7 +124,7 @@ namespace BibleDoEpubu.Properties {
         ///&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1//EN&quot;
         ///&quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;
         ///
-        ///&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+        ///&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xmlns:epub=&quot;http://www.idpf.org/2007/ops&quot;&gt;
         ///&lt;head&gt;
         ///  &lt;title&gt;{0}&lt;/title&gt;
         ///  &lt;link href=&quot;../css/kniha.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;/&gt;
@@ -134,18 +134,39 @@ namespace BibleDoEpubu.Properties {
         ///&lt;div&gt;
         ///  &lt;img alt=&quot;Obálka&quot; src=&quot;../img/cover.png&quot; style=&quot;height: 100%&quot;/&gt;
         ///&lt;/div&gt;
+        ///&lt;/body&gt;
+        ///&lt;/html&gt;.
+        /// </summary>
+        internal static string kniha_0_cover {
+            get {
+                return ResourceManager.GetString("kniha_0_cover", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;no&quot;?&gt;
         ///
+        ///&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1//EN&quot;
+        ///&quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;
+        ///
+        ///&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xmlns:epub=&quot;http://www.idpf.org/2007/ops&quot;&gt;
+        ///&lt;head&gt;
+        ///  &lt;title&gt;{0}&lt;/title&gt;
+        ///  &lt;link href=&quot;../css/kniha.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;/&gt;
+        ///&lt;/head&gt;
+        ///
+        ///&lt;body&gt;
         ///&lt;div class=&quot;sgc-1&quot;&gt;
         ///  &lt;img alt=&quot;{0}&quot; src=&quot;../img/logo.png&quot;/&gt;
         ///&lt;/div&gt;
         ///
         ///&lt;p style=&quot;text-align: left;&quot;&gt;
         ///  {0}&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
-        ///   [rest of string was truncated]&quot;;.
+        ///  Autor překladu: Alexandr Flek a kol.&lt;b [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string kniha_00_uvod {
+        internal static string kniha_0_uvod {
             get {
-                return ResourceManager.GetString("kniha_00_uvod", resourceCulture);
+                return ResourceManager.GetString("kniha_0_uvod", resourceCulture);
             }
         }
         
@@ -187,7 +208,7 @@ namespace BibleDoEpubu.Properties {
         ///&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1//EN&quot;
         ///&quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;
         ///
-        ///&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+        ///&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xmlns:epub=&quot;http://www.idpf.org/2007/ops&quot;&gt;
         ///&lt;head&gt;
         ///  &lt;title&gt;Poznámky&lt;/title&gt;
         ///  &lt;link href=&quot;../css/kniha.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;/&gt;
