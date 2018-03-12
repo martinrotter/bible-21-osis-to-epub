@@ -2,7 +2,7 @@ p {
   text-align: justify;
 }
 
-kurziva {
+.kurziva {
   font-style: italic;
 }
 
@@ -10,7 +10,12 @@ h1, h2 {
   text-align: center;
 }
 
-.poem {
+sup {
+  color: gray;
+  font-size: xx-small;
+}
+
+.poezie {
   margin-top: 24px;
   margin-bottom: 24px;
   font-style: italic;

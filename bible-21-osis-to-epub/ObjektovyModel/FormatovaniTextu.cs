@@ -22,7 +22,14 @@
 
     public override string PrevestNaHtml()
     {
-      return base.PrevestNaHtml();
+      if (Kurziva)
+      {
+        return $"<span class=\"kurziva\">{base.PrevestNaHtml()}</span>";
+      }
+      else
+      {
+        return base.PrevestNaHtml();
+      }
     }
 
     #endregion

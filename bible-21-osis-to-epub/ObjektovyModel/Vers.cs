@@ -26,7 +26,7 @@
 
     public override string PrevestNaHtml()
     {
-      return $"<sup>{Id}</sup> " + base.PrevestNaHtml();
+      return $"<sup>{Id}</sup>" + base.PrevestNaHtml();
     }
 
     #endregion

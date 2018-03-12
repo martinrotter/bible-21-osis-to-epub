@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
-using System.Net;
 using System.Text;
 using BibleDoEpubu.ObjektovyModel;
 using ICSharpCode.SharpZipLib.Zip;
@@ -12,10 +11,6 @@ namespace BibleDoEpubu
 {
   internal class EpubGenerator
   {
-    #region Konstruktory
-
-    #endregion
-
     #region Metody
 
     public string VygenerovatEpub(Bible bible)
@@ -87,8 +82,8 @@ namespace BibleDoEpubu
         bible.Revize.Datum.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
         string.Join("\n", manifesty),
         string.Join("\n", spine));
-      File.WriteAllText(Path.Combine(obsahAdresar, "content.opf"), obsahOpf);
 
+      File.WriteAllText(Path.Combine(obsahAdresar, "content.opf"), obsahOpf);
 
       // Konverze zip -> epub.
       FastZip zip = new FastZip();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Web;
 using System.Xml;
 using BibleDoEpubu.ObjektovyModel;
 
@@ -16,10 +17,6 @@ namespace BibleDoEpubu
       get;
       set;
     }
-
-    #endregion
-
-    #region Konstruktory
 
     #endregion
 
@@ -247,7 +244,8 @@ namespace BibleDoEpubu
             // Máme čistě textový záznam.
             CastTextuSTextem textovaCast = new CastTextuSTextem
             {
-              TextovaData = xmlPotomek.Value.TrimEnd('\n', '\r', ' ')
+              // TrimEnd('\n', '\r', ' ')
+              TextovaData = HttpUtility.HtmlEncode(xmlPotomek.Value)
             };
 
             rodic.PridatPotomka(textovaCast);

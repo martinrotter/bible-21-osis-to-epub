@@ -62,12 +62,12 @@ namespace BibleDoEpubu.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///
         ///&lt;container version=&quot;1.0&quot; xmlns=&quot;urn:oasis:names:tc:opendocument:xmlns:container&quot;&gt;
-        ///    &lt;rootfiles&gt;
-        ///        &lt;rootfile full-path=&quot;OEBPS/content.opf&quot; media-type=&quot;application/oebps-package+xml&quot;/&gt;
-        ///   &lt;/rootfiles&gt;
-        ///&lt;/container&gt;
-        ///.
+        ///  &lt;rootfiles&gt;
+        ///    &lt;rootfile full-path=&quot;OEBPS/content.opf&quot; media-type=&quot;application/oebps-package+xml&quot; /&gt;
+        ///  &lt;/rootfiles&gt;
+        ///&lt;/container&gt;.
         /// </summary>
         internal static string container {
             get {
@@ -97,17 +97,18 @@ namespace BibleDoEpubu.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;no&quot;?&gt;
+        ///
         ///&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1//EN&quot;
-        ///  &quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;
+        ///&quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;
         ///
         ///&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
         ///&lt;head&gt;
         ///  &lt;title&gt;{0}&lt;/title&gt;
-        ///  &lt;link href=&quot;../css/kniha.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+        ///  &lt;link href=&quot;../css/kniha.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;/&gt;
         ///&lt;/head&gt;
         ///
         ///&lt;body&gt;
-        ///  {1}
+        ///{1}
         ///&lt;/body&gt;
         ///&lt;/html&gt;.
         /// </summary>
@@ -122,7 +123,7 @@ namespace BibleDoEpubu.Properties {
         ///  text-align: justify;
         ///}
         ///
-        ///kurziva {
+        ///.kurziva {
         ///  font-style: italic;
         ///}
         ///
@@ -130,7 +131,12 @@ namespace BibleDoEpubu.Properties {
         ///  text-align: center;
         ///}
         ///
-        ///.poem {
+        ///sup {
+        ///  color: gray;
+        ///  font-size: xx-small;
+        ///}
+        ///
+        ///.poezie {
         ///  margin-top: 24px;
         ///  margin-bottom: 24px;
         ///  font-style: italic;

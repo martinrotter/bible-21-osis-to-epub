@@ -12,7 +12,7 @@
 
     public override string PrevestNaHtml()
     {
-      return "<p>" + base.PrevestNaHtml() + "</p>";
+      return "<p class=\"poezie\">" + base.PrevestNaHtml() + "</p>";
     }
 
     #endregion
