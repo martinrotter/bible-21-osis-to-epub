@@ -1,0 +1,19 @@
+p {
+  text-align: justify;
+}
+
+kurziva {
+  font-style: italic;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+.poem {
+  margin-top: 24px;
+  margin-bottom: 24px;
+  font-style: italic;
+  color: rgb(100, 100, 100);
+  font-size: small;
+}

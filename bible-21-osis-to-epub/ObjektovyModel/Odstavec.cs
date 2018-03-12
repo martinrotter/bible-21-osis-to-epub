@@ -8,5 +8,13 @@
   /// </remarks>
   internal class Odstavec : CastTextu
   {
+    #region Metody
+
+    public override string PrevestNaHtml()
+    {
+      return "<p>" + base.PrevestNaHtml() + "</p>";
+    }
+
+    #endregion
   }
 }

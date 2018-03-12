@@ -54,9 +54,9 @@ namespace BibleDoEpubu.ObjektovyModel
     /// </returns>
     public virtual string PrevestNaHtml()
     {
-      var stavec = new StringBuilder();
+      StringBuilder stavec = new StringBuilder();
 
-      foreach (var potomek in Potomci)
+      foreach (CastTextu potomek in Potomci)
       {
         stavec.Append(potomek.PrevestNaHtml());
       }

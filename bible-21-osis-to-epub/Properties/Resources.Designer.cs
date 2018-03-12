@@ -59,5 +59,109 @@ namespace BibleDoEpubu.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;container version=&quot;1.0&quot; xmlns=&quot;urn:oasis:names:tc:opendocument:xmlns:container&quot;&gt;
+        ///    &lt;rootfiles&gt;
+        ///        &lt;rootfile full-path=&quot;OEBPS/content.opf&quot; media-type=&quot;application/oebps-package+xml&quot;/&gt;
+        ///   &lt;/rootfiles&gt;
+        ///&lt;/container&gt;
+        ///.
+        /// </summary>
+        internal static string container {
+            get {
+                return ResourceManager.GetString("container", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] content {
+            get {
+                object obj = ResourceManager.GetObject("content", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cover {
+            get {
+                object obj = ResourceManager.GetObject("cover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;no&quot;?&gt;
+        ///&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1//EN&quot;
+        ///  &quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;
+        ///
+        ///&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+        ///&lt;head&gt;
+        ///  &lt;title&gt;{0}&lt;/title&gt;
+        ///  &lt;link href=&quot;../css/kniha.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+        ///&lt;/head&gt;
+        ///
+        ///&lt;body&gt;
+        ///  {1}
+        ///&lt;/body&gt;
+        ///&lt;/html&gt;.
+        /// </summary>
+        internal static string kniha {
+            get {
+                return ResourceManager.GetString("kniha", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to p {
+        ///  text-align: justify;
+        ///}
+        ///
+        ///kurziva {
+        ///  font-style: italic;
+        ///}
+        ///
+        ///h1, h2 {
+        ///  text-align: center;
+        ///}
+        ///
+        ///.poem {
+        ///  margin-top: 24px;
+        ///  margin-bottom: 24px;
+        ///  font-style: italic;
+        ///  color: rgb(100, 100, 100);
+        ///  font-size: small;
+        ///}.
+        /// </summary>
+        internal static string kniha_css {
+            get {
+                return ResourceManager.GetString("kniha_css", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logo {
+            get {
+                object obj = ResourceManager.GetObject("logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] mimetype {
+            get {
+                object obj = ResourceManager.GetObject("mimetype", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

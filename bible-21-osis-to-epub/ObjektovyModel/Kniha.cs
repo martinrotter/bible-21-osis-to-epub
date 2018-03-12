@@ -8,7 +8,7 @@
     #region Vlastnosti
 
     /// <summary>
-    /// ID knihy, např. "Gen".
+    /// ID knihy, např. "Gen"., první úroveň nadpisu.
     /// </summary>
     public string Id
     {

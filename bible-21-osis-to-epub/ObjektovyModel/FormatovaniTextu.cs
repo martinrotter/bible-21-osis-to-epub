@@ -17,5 +17,14 @@
     }
 
     #endregion
+
+    #region Metody
+
+    public override string PrevestNaHtml()
+    {
+      return base.PrevestNaHtml();
+    }
+
+    #endregion
   }
 }

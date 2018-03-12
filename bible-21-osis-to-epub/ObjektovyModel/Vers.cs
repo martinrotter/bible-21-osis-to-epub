@@ -26,7 +26,7 @@
 
     public override string PrevestNaHtml()
     {
-      return Potomci.Count == 0 ? " " : ($"<sup>Id</sup> " + base.PrevestNaHtml());
+      return $"<sup>{Id}</sup> " + base.PrevestNaHtml();
     }
 
     #endregion

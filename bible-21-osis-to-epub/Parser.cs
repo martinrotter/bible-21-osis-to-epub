@@ -125,7 +125,7 @@ namespace BibleDoEpubu
             {
               CastKnihy castKnihy = new CastKnihy
               {
-                Nadpis = xmlPotomek.SelectSingleNode("os:title", NsManager).InnerText
+                Nadpis = xmlPotomek.SelectSingleNode("os:title", NsManager).InnerText.Trim('<', '>', '"')
               };
 
               rodic.PridatPotomka(castKnihy);

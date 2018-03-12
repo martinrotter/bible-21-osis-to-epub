@@ -6,15 +6,15 @@
         <dc:creator opf:role="aut">Alexandr Flek a kol.</dc:creator>
         <dc:language>cs</dc:language>
         <dc:date opf:event="modification">{1}</dc:date>
-        <meta content="{2}" name="{3}"/>
         <meta name="cover" content="cover.png"/>
     </metadata>
     <manifest>
-        <item href="images/logo.png" id="logo.png" media-type="image/png"/>
-        <item href="images/cover.png" id="cover.png" media-type="image/png"/>
-        {4}
+        <item href="img/logo.png" id="logo.png" media-type="image/png"/>
+        <item href="img/cover.png" id="cover.png" media-type="image/png"/>
+        <item href="css/kniha.css" id="kniha.css" media-type="text/css"/>
+        {2}
     </manifest>
     <spine toc="ncx">
-        {5}
+        {3}
     </spine>
 </package>
