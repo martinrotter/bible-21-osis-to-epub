@@ -6,12 +6,11 @@ namespace BibleDoEpubu
 {
   internal class EpubGenerator
   {
+    #region Konstruktory
+
+    #endregion
+
     #region Metody
-
-    public EpubGenerator()
-    {
-
-    }
 
     public string VygenerovatEpub(Bible bible)
     {
@@ -33,6 +32,25 @@ namespace BibleDoEpubu
 
       // Vygenerujeme úvodní texty, titulní obrázek,
       // úvodní nakladatelské informace, seznam knih.
+      string obsahAdresar = Path.Combine(epubAdresar, "OEBPS");
+      string htmlAdresar = Path.Combine(obsahAdresar, "html");
+      string cssAdresar = Path.Combine(obsahAdresar, "css");
+
+      Directory.CreateDirectory(htmlAdresar);
+      Directory.CreateDirectory(cssAdresar);
+
+      int pocitadloKnih = 1;
+      int pocitadloPoznamek = 1;
+
+      foreach (Kniha kniha in bible.Knihy)
+      {
+        string souborKnihy = Path.Combine(htmlAdresar, $"kniha-{pocitadloKnih}-{kniha.Id}.html");
+
+        File.WriteAllText();
+
+        pocitadloKnih++;
+        break;
+      }
 
       return epubSoubor;
     }

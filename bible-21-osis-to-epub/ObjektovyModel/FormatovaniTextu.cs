@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BibleDoEpubu.ObjektovyModel
+﻿namespace BibleDoEpubu.ObjektovyModel
 {
   internal class FormatovaniTextu : CastTextu
   {
-    public bool Tucne
-    {
-      get;
-      set;
-    }
+    #region Vlastnosti
 
     public bool Kurziva
     {
       get;
       set;
     }
+
+    public bool Tucne
+    {
+      get;
+      set;
+    }
+
+    #endregion
   }
 }

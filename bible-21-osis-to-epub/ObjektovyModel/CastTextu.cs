@@ -7,11 +7,23 @@ namespace BibleDoEpubu.ObjektovyModel
   {
     #region Vlastnosti
 
-    public CastTextu Rodic { get; set; }
+    public List<CastTextu> Potomci
+    {
+      get;
+      set;
+    } = new List<CastTextu>();
 
-    public List<CastTextu> Potomci { get; set; } = new List<CastTextu>();
+    public CastTextu Rodic
+    {
+      get;
+      set;
+    }
 
-    public string TextovaData { get; set; }
+    public string TextovaData
+    {
+      get;
+      set;
+    }
 
     #endregion
 

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="BookId" version="2.0">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+        <dc:identifier id="BookId" opf:scheme="UUID">urn:uuid:c2e985a5-8b7e-4236-a36e-7b7102d81b4d</dc:identifier>
+        <dc:title>{0}</dc:title>
+        <dc:creator opf:role="aut">Alexandr Flek a kol.</dc:creator>
+        <dc:language>cs</dc:language>
+        <dc:date opf:event="modification">{1}</dc:date>
+        <meta content="{2}" name="{3}"/>
+        <meta name="cover" content="cover.png"/>
+    </metadata>
+    <manifest>
+        <item href="images/logo.png" id="logo.png" media-type="image/png"/>
+        <item href="images/cover.png" id="cover.png" media-type="image/png"/>
+        {4}
+    </manifest>
+    <spine toc="ncx">
+        {5}
+    </spine>
+</package>

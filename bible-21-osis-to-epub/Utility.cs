@@ -4,6 +4,8 @@ namespace BibleDoEpubu
 {
   internal static class Utility
   {
+    #region Metody
+
     public static void VymazatAdresar(string adresar)
     {
       DirectoryInfo dir = new DirectoryInfo(adresar);
@@ -19,5 +21,7 @@ namespace BibleDoEpubu
         di.Delete();
       }
     }
+
+    #endregion
   }
 }

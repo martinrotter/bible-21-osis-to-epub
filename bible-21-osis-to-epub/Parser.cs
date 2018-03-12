@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Xml;
@@ -10,11 +9,19 @@ namespace BibleDoEpubu
 {
   internal class Parser
   {
+    #region Vlastnosti
+
     private XmlNamespaceManager NsManager
     {
       get;
       set;
     }
+
+    #endregion
+
+    #region Konstruktory
+
+    #endregion
 
     #region Metody
 
@@ -27,9 +34,9 @@ namespace BibleDoEpubu
 
       XmlNode osisText = xml.SelectSingleNode("/os:osis/os:osisText", NsManager);
 
-      Bible bible = new Bible()
+      Bible bible = new Bible
       {
-        Revize = new Revize()
+        Revize = new Revize
         {
           Datum = DateTime.ParseExact(
             osisText?.SelectSingleNode("os:header/os:revisionDesc/os:date", NsManager)?.InnerText,
@@ -37,7 +44,7 @@ namespace BibleDoEpubu
             CultureInfo.InvariantCulture),
           Popis = osisText?.SelectSingleNode("os:header/os:revisionDesc/os:p", NsManager)?.InnerText
         },
-        Metadata = new Metadata()
+        Metadata = new Metadata
         {
           Copyright = osisText?.SelectSingleNode("os:header/os:work/os:rights", NsManager)?.InnerText,
           Isbn = osisText?.SelectSingleNode("os:header/os:work/os:identifier", NsManager)?.InnerText,
@@ -52,12 +59,8 @@ namespace BibleDoEpubu
         Kniha k = NacistKnihu(kniha);
         bible.Knihy.Add(k);
       }
-      
-      return bible;
-    }
 
-    public Parser()
-    {
+      return bible;
     }
 
     private static XmlNamespaceManager VygenerovatNamespaceManager(XmlDocument xml)
@@ -83,7 +86,7 @@ namespace BibleDoEpubu
       };
 
       // Tento seznam obashuje seznamy XML prvků, které patří do daného rodiče.
-      List<List<XmlNode>> xmlProRodice = new List<List<XmlNode>>()
+      List<List<XmlNode>> xmlProRodice = new List<List<XmlNode>>
       {
         xml.ChildNodes.OfType<XmlNode>().ToList()
       };
@@ -112,7 +115,6 @@ namespace BibleDoEpubu
                 Nadpis = xmlPotomek.SelectSingleNode("os:title", NsManager).InnerText
               };
 
-
               rodic.PridatPotomka(hlavniCast);
               rodice.Add(hlavniCast);
               xmlProRodice.Add(xmlPotomek.ChildNodes.OfType<XmlNode>().ToList());
@@ -121,7 +123,7 @@ namespace BibleDoEpubu
               xmlPotomek.Name == "div" && xmlPotomekElem.HasAttribute("type") &&
               xmlPotomek.Attributes["type"].InnerText == "section")
             {
-              CastKnihy castKnihy = new CastKnihy()
+              CastKnihy castKnihy = new CastKnihy
               {
                 Nadpis = xmlPotomek.SelectSingleNode("os:title", NsManager).InnerText
               };
@@ -135,7 +137,7 @@ namespace BibleDoEpubu
               xmlPotomek.Attributes["type"].InnerText == "preface")
             {
               // Předmluva.
-              CastKnihy castKnihy = new CastKnihy()
+              CastKnihy castKnihy = new CastKnihy
               {
                 Nadpis = xmlPotomek.SelectSingleNode("os:title", NsManager).InnerText
               };
@@ -166,7 +168,7 @@ namespace BibleDoEpubu
             {
               if (xmlPotomekElem.HasAttribute("osisID"))
               {
-                UvodKapitoly uvodKapitoly = new UvodKapitoly()
+                UvodKapitoly uvodKapitoly = new UvodKapitoly
                 {
                   Id = xmlPotomek.SelectSingleNode("@osisID", NsManager).InnerText
                 };
@@ -184,7 +186,7 @@ namespace BibleDoEpubu
             {
               if (xmlPotomekElem.HasAttribute("osisID"))
               {
-                Vers vers = new Vers()
+                Vers vers = new Vers
                 {
                   Id = xmlPotomek.SelectSingleNode("@osisID", NsManager).InnerText
                 };
@@ -218,7 +220,7 @@ namespace BibleDoEpubu
             else if (xmlPotomek.Name == "i")
             {
               // Poznámka (pod čarou).
-              FormatovaniTextu formatovaniTextu = new FormatovaniTextu()
+              FormatovaniTextu formatovaniTextu = new FormatovaniTextu
               {
                 Kurziva = true
               };
@@ -238,13 +240,12 @@ namespace BibleDoEpubu
             }
             else
             {
-
             }
           }
           else if (xmlPotomek is XmlText)
           {
             // Máme čistě textový záznam.
-            CastTextuSTextem textovaCast = new CastTextuSTextem()
+            CastTextuSTextem textovaCast = new CastTextuSTextem
             {
               TextovaData = xmlPotomek.Value.TrimEnd('\n', '\r', ' ')
             };
@@ -255,11 +256,9 @@ namespace BibleDoEpubu
           }
           else
           {
-
           }
         }
       }
-
 
       return kniha;
     }

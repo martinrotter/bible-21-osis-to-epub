@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using BibleDoEpubu.ObjektovyModel;
 
 namespace BibleDoEpubu
@@ -12,8 +13,10 @@ namespace BibleDoEpubu
       Parser parser = new Parser();
       Bible bible = parser.NacistBibli(args.First());
 
-      EpubGenerator generator = new EpubGenerator();    
+      EpubGenerator generator = new EpubGenerator();
       string epubCesta = generator.VygenerovatEpub(bible);
+
+      Console.WriteLine($"EPUB uložen v '{epubCesta}'");
     }
 
     #endregion

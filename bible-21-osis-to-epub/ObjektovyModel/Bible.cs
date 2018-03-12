@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Security.Policy;
 
 namespace BibleDoEpubu.ObjektovyModel
 {
@@ -8,6 +7,19 @@ namespace BibleDoEpubu.ObjektovyModel
   /// </summary>
   internal class Bible
   {
+    #region Vlastnosti
+
+    public List<Kniha> Knihy
+    {
+      get;
+      set;
+    } = new List<Kniha>();
+
+    public Dictionary<string, string> MapovaniZkratekKnih
+    {
+      get;
+    }
+
     public Metadata Metadata
     {
       get;
@@ -20,22 +32,22 @@ namespace BibleDoEpubu.ObjektovyModel
       set;
     }
 
-    public List<Kniha> Knihy
-    {
-      get;
-      set;
-    } = new List<Kniha>();
+    #endregion
 
-    public Dictionary<string, string> MapovaniZkratekKnih { get; }
+    #region Konstruktory
 
     public Bible()
     {
       MapovaniZkratekKnih = NacistMapovaniZkratekKnih();
     }
 
+    #endregion
+
+    #region Metody
+
     private Dictionary<string, string> NacistMapovaniZkratekKnih()
     {
-      return new Dictionary<string, string>()
+      return new Dictionary<string, string>
       {
         // Starý zákon.
         {"Gen", "Genesis"},
@@ -119,5 +131,7 @@ namespace BibleDoEpubu.ObjektovyModel
         {"Rev", "Zjevení"}
       };
     }
+
+    #endregion
   }
 }
