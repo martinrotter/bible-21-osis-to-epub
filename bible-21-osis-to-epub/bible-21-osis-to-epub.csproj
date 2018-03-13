@@ -101,9 +101,6 @@
     <None Include="Resources\kniha.css" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\kniha-00-uvod.html" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\kniha-XX-poznamky.html" />
   </ItemGroup>
   <ItemGroup>

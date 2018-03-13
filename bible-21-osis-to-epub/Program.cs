@@ -14,9 +14,11 @@ namespace BibleDoEpubu
       Bible bible = parser.NacistBibli(args.First());
 
       EpubGenerator generator = new EpubGenerator();
-      string epubCesta = generator.VygenerovatEpub(bible);
 
-      Console.WriteLine($"EPUB uložen v '{epubCesta}'");
+      generator.VygenerovatEpub(bible, true);
+      generator.VygenerovatEpub(bible, false);
+
+      Console.WriteLine("Hotovo...");
     }
 
     #endregion

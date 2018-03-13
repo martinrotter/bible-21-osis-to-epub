@@ -12,11 +12,15 @@ namespace BibleDoEpubu
 {
   internal class EpubGenerator
   {
+    #region Vlastnosti
+
     private List<PouzitaPoznamka> PouzitePoznamky
     {
       get;
       set;
     } = new List<PouzitaPoznamka>();
+
+    #endregion
 
     #region Metody
 
@@ -79,7 +83,7 @@ namespace BibleDoEpubu
           stavec.Append(VygenerovatCastTextu(potomek, kniha, bible, dlouheCislaVerse));
         }
 
-        PouzitaPoznamka poznamka = new PouzitaPoznamka()
+        PouzitaPoznamka poznamka = new PouzitaPoznamka
         {
           Text = stavec.ToString(),
           Id = $"pozn-{PouzitePoznamky.Count + 1}"
@@ -87,7 +91,7 @@ namespace BibleDoEpubu
 
         PouzitePoznamky.Add(poznamka);
 
-        return $"<sup><a href=\"kniha-XX-poznamky.html#{poznamka.Id}\" epub:type=\"noteref\">[{PouzitePoznamky.Count}]</a></sup>";
+        return $"<sup class=\"poznamka\"><a href=\"kniha-XX-poznamky.html#{poznamka.Id}\" epub:type=\"noteref\">[{PouzitePoznamky.Count}]</a></sup>";
       }
       else if (cast is Poezie)
       {
@@ -187,8 +191,10 @@ namespace BibleDoEpubu
       return bldr.ToString();
     }
 
-    public string VygenerovatEpub(Bible bible)
+    public string VygenerovatEpub(Bible bible, bool dlouhaCislaVerse)
     {
+      PouzitePoznamky.Clear();
+
       string pracovniAdresar = Environment.CurrentDirectory;
       string epubAdresar = Path.Combine(pracovniAdresar, bible.Metadata.Nazev);
       string epubSoubor = Path.Combine(pracovniAdresar, $"{bible.Metadata.Nazev}.epub");
@@ -227,7 +233,7 @@ namespace BibleDoEpubu
         string nazevSouboruKnihy = $"kniha-{pocitadloKnih}-{kniha.Id}.html";
         string souborKnihy = Path.Combine(htmlAdresar, nazevSouboruKnihy);
         string htmlMustr = Properties.Resources.kniha.Clone() as string;
-        string htmlObsah = VygenerovatKnihu(kniha, bible, true);
+        string htmlObsah = VygenerovatKnihu(kniha, bible, dlouhaCislaVerse);
 
         htmlObsah = $"<h1>{bible.MapovaniZkratekKnih[kniha.Id]}</h1>" + htmlObsah;
         htmlObsah = string.Format(htmlMustr, bible.MapovaniZkratekKnih[kniha.Id], htmlObsah);
@@ -288,7 +294,8 @@ namespace BibleDoEpubu
       };
 
       z.CreateZip(
-        $"{bible.Metadata.Nazev}-{bible.Revize.Datum.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)}.epub",
+        $"{bible.Metadata.Nazev}-{bible.Revize.Datum.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)}" +
+        $"{(dlouhaCislaVerse ? "-l" : string.Empty)}.epub",
         epubAdresar, true, string.Empty);
 
       return epubSoubor;

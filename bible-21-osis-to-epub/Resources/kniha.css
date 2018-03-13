@@ -15,10 +15,11 @@ sup {
   font-size: xx-small;
 }
 
+.poznamka {
+  text-decoration: underline;
+}
+
 .poezie {
   margin-top: 24px;
   margin-bottom: 24px;
-  font-style: italic;
-  color: rgb(100, 100, 100);
-  font-size: small;
 }
