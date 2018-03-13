@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    .affix {
+      top: 20px;
+      z-index: 9999 !important;
+    }
+
+    sup {
+      font-size: 90%;
+    }
+
+    .poznamka a {
+      color: red;
+    }
+  </style>
+  <script>
+    $(document).ready(function () {
+      $('[data-toggle="tooltip"]').tooltip({
+        container: 'body'
+      });
+    });
+  </script>
+
+  <title>{0}</title>
+</head>
+<body data-spy="scroll" data-target="#navbar-example" data-offset="50">
+  <div class="container">
+    <div class="row">
+      <nav class="col-xs-2" id="navbar-example">
+        <ul class="nav nav-pills nav-stacked" style="height: 100%; overflow-y: auto;" data-spy="affix" data-offset-top="-10">
+          {1}
+        </ul>
+      </nav>
+      <div class="col-xs-9">
+        {2}
+      </div>
+    </div>
+  </div>
+</body>
+</html>

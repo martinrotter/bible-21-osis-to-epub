@@ -13,10 +13,15 @@ namespace BibleDoEpubu
       Parser parser = new Parser();
       Bible bible = parser.NacistBibli(args.First());
 
-      EpubGenerator generator = new EpubGenerator();
+      EpubGenerator epubGenerator = new EpubGenerator();
 
-      generator.VygenerovatEpub(bible, true);
-      generator.VygenerovatEpub(bible, false);
+      //epubGenerator.VygenerovatEpub(bible, true);
+      //epubGenerator.VygenerovatEpub(bible, false);
+
+      HtmlGenerator htmlGenerator = new HtmlGenerator();
+
+      htmlGenerator.VygenerovatHtml(bible, true);
+      htmlGenerator.VygenerovatHtml(bible, false);
 
       Console.WriteLine("Hotovo...");
     }

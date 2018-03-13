@@ -61,6 +61,27 @@ namespace BibleDoEpubu.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
+        ///&lt;html lang=&quot;cs&quot;&gt;
+        ///&lt;head&gt;
+        ///  &lt;meta charset=&quot;utf-8&quot;&gt;
+        ///  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+        ///  &lt;link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css&quot;&gt;
+        ///  &lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+        ///  &lt;script src=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+        ///  &lt;style&gt;
+        ///    .affix {
+        ///      top: 20px;
+        ///      z-index: 9999 !important;
+        ///     [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string bible_cela {
+            get {
+                return ResourceManager.GetString("bible_cela", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
         ///
         ///&lt;container version=&quot;1.0&quot; xmlns=&quot;urn:oasis:names:tc:opendocument:xmlns:container&quot;&gt;
@@ -156,13 +177,14 @@ namespace BibleDoEpubu.Properties {
         ///&lt;/head&gt;
         ///
         ///&lt;body&gt;
-        ///&lt;div class=&quot;sgc-1&quot;&gt;
+        ///&lt;div&gt;
         ///  &lt;img alt=&quot;{0}&quot; src=&quot;../img/logo.png&quot;/&gt;
         ///&lt;/div&gt;
         ///
         ///&lt;p style=&quot;text-align: left;&quot;&gt;
         ///  {0}&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
-        ///  Autor překladu: Alexandr Flek a kol.&lt;b [rest of string was truncated]&quot;;.
+        ///  Autor překladu: Alexandr Flek a kol.&lt;br/&gt;
+        ///  Vydal: B [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string kniha_0_uvod {
             get {
@@ -188,12 +210,13 @@ namespace BibleDoEpubu.Properties {
         ///  font-size: xx-small;
         ///}
         ///
+        ///.poznamka {
+        ///  text-decoration: underline;
+        ///}
+        ///
         ///.poezie {
         ///  margin-top: 24px;
         ///  margin-bottom: 24px;
-        ///  font-style: italic;
-        ///  color: rgb(100, 100, 100);
-        ///  font-size: small;
         ///}.
         /// </summary>
         internal static string kniha_css {

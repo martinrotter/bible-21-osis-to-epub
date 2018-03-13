@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EpubGenerator.cs" />
+    <Compile Include="HtmlGenerator.cs" />
     <Compile Include="Konstanty.cs" />
     <Compile Include="ObjektovyModel\Bible.cs" />
     <Compile Include="ObjektovyModel\CastKnihy.cs" />
@@ -108,6 +109,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\kniha-0-uvod.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bible-cela.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
