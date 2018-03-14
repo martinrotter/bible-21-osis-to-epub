@@ -15,8 +15,8 @@ namespace BibleDoEpubu
 
       EpubGenerator epubGenerator = new EpubGenerator();
 
-      //epubGenerator.VygenerovatEpub(bible, true);
-      //epubGenerator.VygenerovatEpub(bible, false);
+      epubGenerator.VygenerovatEpub(bible, true);
+      epubGenerator.VygenerovatEpub(bible, false);
 
       HtmlGenerator htmlGenerator = new HtmlGenerator();
 

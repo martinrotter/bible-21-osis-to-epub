@@ -1,17 +1,14 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="cs">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  
   <style>
-    .affix {
-      top: 20px;
-      z-index: 9999 !important;
-    }
-
     sup {
       font-size: 90%;
     }
@@ -19,7 +16,21 @@
     .poznamka a {
       color: red;
     }
+    
+    .scrollable-menu {
+      height: auto;
+      max-height: 200px;
+      overflow-x: hidden;
+    }
+    
+    a.anchor {
+      display: block;
+      position: relative;
+      top: -100px;
+      visibility: hidden;
+    }
   </style>
+  
   <script>
     $(document).ready(function () {
       $('[data-toggle="tooltip"]').tooltip({
@@ -31,17 +42,28 @@
   <title>{0}</title>
 </head>
 <body data-spy="scroll" data-target="#navbar-example" data-offset="50">
-  <div class="container">
-    <div class="row">
-      <nav class="col-xs-2" id="navbar-example">
-        <ul class="nav nav-pills nav-stacked" style="height: 100%; overflow-y: auto;" data-spy="affix" data-offset-top="-10">
-          {1}
-        </ul>
-      </nav>
-      <div class="col-xs-9">
-        {2}
-      </div>
+<div class="container">
+<body>
+<div class="container">
+  <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">{0}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Kapitola
+          </a>
+          <div class="dropdown-menu scrollable-menu" aria-labelledby="navbarDropdownMenuLink">
+            {1}
+          </div>
+        </li>
+      </ul>
     </div>
-  </div>
+  </nav>
+  {2}
+</div>
 </body>
 </html>

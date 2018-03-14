@@ -2,16 +2,20 @@
 {
   internal class PouzitaPoznamka
   {
-    public string Text
-    {
-      get;
-      set;
-    }
+    #region Vlastnosti
 
     public string Id
     {
       get;
       set;
     }
+
+    public string Text
+    {
+      get;
+      set;
+    }
+
+    #endregion
   }
 }

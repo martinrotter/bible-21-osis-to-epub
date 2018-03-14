@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Web;
 using BibleDoEpubu.ObjektovyModel;
-using ICSharpCode.SharpZipLib.Zip;
 
 namespace BibleDoEpubu
 {
@@ -206,6 +203,7 @@ namespace BibleDoEpubu
       PouzitePoznamky.Clear();
 
       string pracovniAdresar = Environment.CurrentDirectory;
+
       string htmlSoubor = Path.Combine(
         pracovniAdresar,
         $"{bible.Metadata.Nazev}-{bible.Revize.Datum.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)}" +
@@ -221,8 +219,8 @@ namespace BibleDoEpubu
 
       foreach (Kniha kniha in bible.Knihy)
       {
-        sekce.Add($"<li><a href=\"#{kniha.Id}\">{bible.MapovaniZkratekKnih[kniha.Id]}</a></li>");
-        obsahy.Add($"<h1 id=\"{kniha.Id}\">{bible.MapovaniZkratekKnih[kniha.Id]}</h1>" + VygenerovatKnihu(kniha, bible, dlouhaCislaVerse));
+        sekce.Add($"<a class=\"dropdown-item\" href=\"#{kniha.Id}\">{bible.MapovaniZkratekKnih[kniha.Id]}</a>");
+        obsahy.Add($"<a class=\"anchor\" id=\"{kniha.Id}\"></a><h1>{bible.MapovaniZkratekKnih[kniha.Id]}</h1>" + VygenerovatKnihu(kniha, bible, dlouhaCislaVerse));
       }
 
       File.WriteAllText(
@@ -232,7 +230,6 @@ namespace BibleDoEpubu
           .Replace("{1}", string.Join("\n", sekce))
           .Replace("{2}", string.Join("\n", obsahy)),
         Encoding.UTF8);
-
 
       return htmlSoubor;
     }
