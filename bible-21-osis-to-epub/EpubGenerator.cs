@@ -98,7 +98,7 @@ namespace BibleDoEpubu
 
         PouzitePoznamky[poradiKnihy].Add(poznamka);
 
-        return $"<sup class=\"poznamka\"><a href=\"kniha-XX-poznamky.html#kniha-{poradiKnihy}-{poznamka.Id}\" epub:type=\"noteref\">[{PouzitePoznamky[poradiKnihy].Count}]</a></sup>";
+        return $"<sup class=\"poznamka\"><a id=\"zpet-kniha-{poradiKnihy}-{poznamka.Id}\" href=\"kniha-XX-poznamky.html#kniha-{poradiKnihy}-{poznamka.Id}\" epub:type=\"noteref\">[{PouzitePoznamky[poradiKnihy].Count}]</a></sup>";
       }
       else if (cast is Poezie)
       {
@@ -234,6 +234,7 @@ namespace BibleDoEpubu
       int pocitadloKnih = 1;
       List<string> manifesty = new List<string>();
       List<string> spine = new List<string>();
+      StringBuilder htmlPoznamek = new StringBuilder();
 
       foreach (Kniha kniha in bible.Knihy)
       {
@@ -243,6 +244,7 @@ namespace BibleDoEpubu
         string htmlObsah = VygenerovatKnihu(kniha, bible, dlouhaCislaVerse);
 
         htmlObsah = $"<h1>{bible.MapovaniZkratekKnih[kniha.Id]}</h1>" + htmlObsah;
+
         htmlObsah = string.Format(
           htmlMustr ?? throw new InvalidOperationException(),
           bible.MapovaniZkratekKnih[kniha.Id],
@@ -253,17 +255,16 @@ namespace BibleDoEpubu
 
         File.WriteAllText(souborKnihy, htmlObsah, Encoding.UTF8);
 
+        if (PouzitePoznamky.ContainsKey(pocitadloKnih - 1))
+        {
+          htmlPoznamek.AppendLine($"<h2>{bible.MapovaniZkratekKnih[kniha.Id]}</h2>");
+
+          htmlPoznamek.AppendLine(string.Join(
+            "\n",
+            PouzitePoznamky[pocitadloKnih - 1].Select((pozn, idx) => $"<p id=\"kniha-{pocitadloKnih - 1}-{pozn.Id}\" epub:type=\"endnote\"><a href=\"{nazevSouboruKnihy}#zpet-kniha-{pocitadloKnih - 1}-{pozn.Id}\">[{idx + 1}]</a> {pozn.Text}</p>")));
+        }
+
         pocitadloKnih++;
-      }
-
-      StringBuilder htmlPoznamek = new StringBuilder();
-
-      foreach (int poradiKnihy in PouzitePoznamky.Keys.OrderBy(x => x))
-      {
-        htmlPoznamek.AppendLine($"<h2>{bible.MapovaniZkratekKnih[bible.Knihy[poradiKnihy].Id]}</h2>");
-        htmlPoznamek.AppendLine(string.Join(
-          "\n",
-          PouzitePoznamky[poradiKnihy].Select((pozn, idx) => $"<p id=\"kniha-{poradiKnihy}-{pozn.Id}\" epub:type=\"endnote\">[{idx + 1}] {pozn.Text}</p>")));
       }
 
       string sumarPoznamek = string.Format(Properties.Resources.kniha_XX_poznamky, htmlPoznamek);
