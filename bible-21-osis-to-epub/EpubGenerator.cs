@@ -14,11 +14,11 @@ namespace BibleDoEpubu
   {
     #region Vlastnosti
 
-    private List<PouzitaPoznamka> PouzitePoznamky
+    private Dictionary<int, List<PouzitaPoznamka>> PouzitePoznamky
     {
       get;
       set;
-    } = new List<PouzitaPoznamka>();
+    } = new Dictionary<int, List<PouzitaPoznamka>>();
 
     #endregion
 
@@ -83,15 +83,22 @@ namespace BibleDoEpubu
           stavec.Append(VygenerovatCastTextu(potomek, kniha, bible, dlouheCislaVerse));
         }
 
+        int poradiKnihy = bible.Knihy.IndexOf(kniha);
+
+        if (!PouzitePoznamky.ContainsKey(poradiKnihy))
+        {
+          PouzitePoznamky.Add(poradiKnihy, new List<PouzitaPoznamka>());
+        }
+
         PouzitaPoznamka poznamka = new PouzitaPoznamka
         {
           Text = stavec.ToString(),
-          Id = $"pozn-{PouzitePoznamky.Count + 1}"
+          Id = $"pozn-{PouzitePoznamky[poradiKnihy].Count + 1}"
         };
 
-        PouzitePoznamky.Add(poznamka);
+        PouzitePoznamky[poradiKnihy].Add(poznamka);
 
-        return $"<sup class=\"poznamka\"><a href=\"kniha-XX-poznamky.html#{poznamka.Id}\" epub:type=\"noteref\">[{PouzitePoznamky.Count}]</a></sup>";
+        return $"<sup class=\"poznamka\"><a href=\"kniha-XX-poznamky.html#kniha-{poradiKnihy}-{poznamka.Id}\" epub:type=\"noteref\">[{PouzitePoznamky[poradiKnihy].Count}]</a></sup>";
       }
       else if (cast is Poezie)
       {
@@ -236,7 +243,10 @@ namespace BibleDoEpubu
         string htmlObsah = VygenerovatKnihu(kniha, bible, dlouhaCislaVerse);
 
         htmlObsah = $"<h1>{bible.MapovaniZkratekKnih[kniha.Id]}</h1>" + htmlObsah;
-        htmlObsah = string.Format(htmlMustr, bible.MapovaniZkratekKnih[kniha.Id], htmlObsah);
+        htmlObsah = string.Format(
+          htmlMustr ?? throw new InvalidOperationException(),
+          bible.MapovaniZkratekKnih[kniha.Id],
+          htmlObsah);
 
         manifesty.Add($"<item href=\"html/{nazevSouboruKnihy}\" id=\"id-{nazevSouboruKnihy}\" media-type=\"application/xhtml+xml\"/>");
         spine.Add($"<itemref idref=\"id-{nazevSouboruKnihy}\"/>");
@@ -246,14 +256,17 @@ namespace BibleDoEpubu
         pocitadloKnih++;
       }
 
-      // Připravíme sumář poznámek pod čarou.
-      string sumarPoznamek = Properties.Resources.kniha_XX_poznamky;
+      StringBuilder htmlPoznamek = new StringBuilder();
 
-      sumarPoznamek = string.Format(
-        sumarPoznamek,
-        string.Join(
+      foreach (int poradiKnihy in PouzitePoznamky.Keys.OrderBy(x => x))
+      {
+        htmlPoznamek.AppendLine($"<h2>{bible.MapovaniZkratekKnih[bible.Knihy[poradiKnihy].Id]}</h2>");
+        htmlPoznamek.AppendLine(string.Join(
           "\n",
-          PouzitePoznamky.Select((pozn, idx) => $"<p id=\"{pozn.Id}\" epub:type=\"endnote\">[{idx + 1}] {pozn.Text}</p>")));
+          PouzitePoznamky[poradiKnihy].Select((pozn, idx) => $"<p id=\"kniha-{poradiKnihy}-{pozn.Id}\" epub:type=\"endnote\">[{idx + 1}] {pozn.Text}</p>")));
+      }
+
+      string sumarPoznamek = string.Format(Properties.Resources.kniha_XX_poznamky, htmlPoznamek);
 
       File.WriteAllText(Path.Combine(htmlAdresar, "kniha-XX-poznamky.html"), sumarPoznamek, Encoding.UTF8);
 

@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <package xmlns="http://www.idpf.org/2007/opf" unique-identifier="BookId" version="2.0">
-    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
-        <dc:identifier id="BookId" opf:scheme="UUID">urn:uuid:c2e985a5-8b7e-4236-a36e-7b7102d81b4d</dc:identifier>
-        <dc:title>{0}</dc:title>
-        <dc:creator opf:role="aut">Alexandr Flek a kol.</dc:creator>
-        <dc:language>cs</dc:language>
-        <dc:date opf:event="modification">{1}</dc:date>
-        <meta name="cover" content="cover.png"/>
-    </metadata>
-    <manifest>
-        <item href="img/logo.png" id="logo.png" media-type="image/png"/>
-        <item href="img/cover.png" id="cover.png" media-type="image/png"/>
-        <item href="css/kniha.css" id="kniha.css" media-type="text/css"/>
-        <item href="html/kniha-0-cover.html" id="id-kniha-0-cover.html" media-type="application/xhtml+xml"/>
-        <item href="html/kniha-0-uvod.html" id="id-kniha-0-uvod.html" media-type="application/xhtml+xml"/>
-        <item href="html/kniha-XX-poznamky.html" id="id-kniha-XX-poznamky.html" media-type="application/xhtml+xml"/>
-        {2}
-    </manifest>
-    <spine>
-        <itemref idref="id-kniha-0-cover.html"/>
-        <itemref idref="id-kniha-0-uvod.html"/>
-        {3}
-        <itemref idref="id-kniha-XX-poznamky.html"/>
-    </spine>
-    <guide>
-        <reference href="html/kniha-0-cover.html" title="Obálka" type="cover"/>
-        <reference href="html/kniha-0-uvod.html" title="Úvod" type="text"/>
-        <reference href="{4}" title="{5}" type="text"/>
-    </guide>
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+    <dc:identifier id="BookId" opf:scheme="UUID">urn:uuid:c2e985a5-8b7e-4236-a36e-7b7102d81b4d</dc:identifier>
+    <dc:title>{0}</dc:title>
+    <dc:creator opf:role="aut">Alexandr Flek a kol.</dc:creator>
+    <dc:language>cs</dc:language>
+    <dc:date opf:event="modification">{1}</dc:date>
+    <meta name="cover" content="cover.png"/>
+  </metadata>
+  <manifest>
+    <item href="img/logo.png" id="logo.png" media-type="image/png"/>
+    <item href="img/cover.png" id="cover.png" media-type="image/png"/>
+    <item href="css/kniha.css" id="kniha.css" media-type="text/css"/>
+    <item href="html/kniha-0-cover.html" id="id-kniha-0-cover.html" media-type="application/xhtml+xml"/>
+    <item href="html/kniha-0-uvod.html" id="id-kniha-0-uvod.html" media-type="application/xhtml+xml"/>
+    <item href="html/kniha-XX-poznamky.html" id="id-kniha-XX-poznamky.html" media-type="application/xhtml+xml"/>
+    {2}
+  </manifest>
+  <spine>
+    <itemref idref="id-kniha-0-cover.html"/>
+    <itemref idref="id-kniha-0-uvod.html"/>
+    {3}
+    <itemref idref="id-kniha-XX-poznamky.html"/>
+  </spine>
+  <guide>
+    <reference href="html/kniha-0-cover.html" title="Obálka" type="cover"/>
+    <reference href="html/kniha-0-uvod.html" title="Úvod" type="text"/>
+    <reference href="{4}" title="{5}" type="text"/>
+  </guide>
 </package>
