@@ -12,20 +12,22 @@
     <item href="img/logo.png" id="logo.png" media-type="image/png"/>
     <item href="img/cover.png" id="cover.png" media-type="image/png"/>
     <item href="css/kniha.css" id="kniha.css" media-type="text/css"/>
-    <item href="html/kniha-0-cover.html" id="id-kniha-0-cover.html" media-type="application/xhtml+xml"/>
-    <item href="html/kniha-0-uvod.html" id="id-kniha-0-uvod.html" media-type="application/xhtml+xml"/>
-    <item href="html/kniha-XX-poznamky.html" id="id-kniha-XX-poznamky.html" media-type="application/xhtml+xml"/>
+    <item href="html/kniha-cover.html" id="id-kniha-cover.html" media-type="application/xhtml+xml"/>
+    <item href="html/kniha-uvod.html" id="id-kniha-uvod.html" media-type="application/xhtml+xml"/>
+    <item href="html/kniha-poznamky.html" id="id-kniha-poznamky.html" media-type="application/xhtml+xml"/>
     {2}
   </manifest>
   <spine>
-    <itemref idref="id-kniha-0-cover.html"/>
-    <itemref idref="id-kniha-0-uvod.html"/>
+    <itemref idref="id-kniha-cover.html"/>
+    <itemref idref="id-kniha-uvod.html"/>
     {3}
-    <itemref idref="id-kniha-XX-poznamky.html"/>
+    <itemref idref="id-kniha-poznamky.html"/>
   </spine>
   <guide>
-    <reference href="html/kniha-0-cover.html" title="Obálka" type="cover"/>
-    <reference href="html/kniha-0-uvod.html" title="Úvod" type="text"/>
-    <reference href="{4}" title="{5}" type="text"/>
+    <reference type="notes" title="Poznámky" href="html/kniha-poznamky.html"/>
+    <reference type="preface" title="Úvod" href="html/kniha-uvod.html"/>
+    <reference type="title-page" title="Úvod" href="html/kniha-uvod.html"/>
+    <reference href="html/kniha-cover.html" type="cover"/>
+    <reference type="text" title="{5}" href="{4}"/>
   </guide>
 </package>

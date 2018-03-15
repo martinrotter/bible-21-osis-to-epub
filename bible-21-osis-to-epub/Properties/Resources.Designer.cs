@@ -66,18 +66,12 @@ namespace BibleDoEpubu.Properties {
         ///&lt;head&gt;
         ///  &lt;meta charset=&quot;utf-8&quot;&gt;
         ///  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
-        ///  &lt;link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css&quot;&gt;
-        ///  &lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js&quot;&gt;&lt;/script&gt;
-        ///  &lt;script src=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
-        ///  &lt;style&gt;
-        ///    .affix {
-        ///      top: 20px;
-        ///      z-index: 9999 !important;
-        ///     [rest of string was truncated]&quot;;.
+        ///  &lt;link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css&quot; integrity=&quot;sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm&quot; crossorigin=&quot;anonymous&quot;&gt;
+        ///  &lt;script src=&quot;https://code.jquery.com/jquery-3.2.1.slim.min.js&quot; integrity=&quot;sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN&quot; crossorigi [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string bible_cela {
+        internal static string bible_online_cela {
             get {
-                return ResourceManager.GetString("bible_cela", resourceCulture);
+                return ResourceManager.GetString("bible_online_cela", resourceCulture);
             }
         }
         
@@ -140,59 +134,6 @@ namespace BibleDoEpubu.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;no&quot;?&gt;
-        ///
-        ///&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1//EN&quot;
-        ///&quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;
-        ///
-        ///&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xmlns:epub=&quot;http://www.idpf.org/2007/ops&quot;&gt;
-        ///&lt;head&gt;
-        ///  &lt;title&gt;{0}&lt;/title&gt;
-        ///  &lt;link href=&quot;../css/kniha.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;/&gt;
-        ///&lt;/head&gt;
-        ///
-        ///&lt;body&gt;
-        ///&lt;div&gt;
-        ///  &lt;img alt=&quot;Obálka&quot; src=&quot;../img/cover.png&quot; style=&quot;height: 100%&quot;/&gt;
-        ///&lt;/div&gt;
-        ///&lt;/body&gt;
-        ///&lt;/html&gt;.
-        /// </summary>
-        internal static string kniha_0_cover {
-            get {
-                return ResourceManager.GetString("kniha_0_cover", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;no&quot;?&gt;
-        ///
-        ///&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1//EN&quot;
-        ///&quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;
-        ///
-        ///&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xmlns:epub=&quot;http://www.idpf.org/2007/ops&quot;&gt;
-        ///&lt;head&gt;
-        ///  &lt;title&gt;{0}&lt;/title&gt;
-        ///  &lt;link href=&quot;../css/kniha.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;/&gt;
-        ///&lt;/head&gt;
-        ///
-        ///&lt;body&gt;
-        ///&lt;div&gt;
-        ///  &lt;img alt=&quot;{0}&quot; src=&quot;../img/logo.png&quot;/&gt;
-        ///&lt;/div&gt;
-        ///
-        ///&lt;p style=&quot;text-align: left;&quot;&gt;
-        ///  {0}&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
-        ///  Autor překladu: Alexandr Flek a kol.&lt;br/&gt;
-        ///  Vydal: B [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string kniha_0_uvod {
-            get {
-                return ResourceManager.GetString("kniha_0_uvod", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to p {
         ///  text-align: justify;
         ///}
@@ -233,6 +174,31 @@ namespace BibleDoEpubu.Properties {
         ///
         ///&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xmlns:epub=&quot;http://www.idpf.org/2007/ops&quot;&gt;
         ///&lt;head&gt;
+        ///  &lt;title&gt;{0}&lt;/title&gt;
+        ///  &lt;link href=&quot;../css/kniha.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;/&gt;
+        ///&lt;/head&gt;
+        ///
+        ///&lt;body&gt;
+        ///&lt;div&gt;
+        ///  &lt;img alt=&quot;Obálka&quot; src=&quot;../img/cover.png&quot; style=&quot;height: 100%&quot;/&gt;
+        ///&lt;/div&gt;
+        ///&lt;/body&gt;
+        ///&lt;/html&gt;.
+        /// </summary>
+        internal static string kniha_obalka {
+            get {
+                return ResourceManager.GetString("kniha_obalka", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;no&quot;?&gt;
+        ///
+        ///&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1//EN&quot;
+        ///&quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;
+        ///
+        ///&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xmlns:epub=&quot;http://www.idpf.org/2007/ops&quot;&gt;
+        ///&lt;head&gt;
         ///  &lt;title&gt;Poznámky&lt;/title&gt;
         ///  &lt;link href=&quot;../css/kniha.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;/&gt;
         ///&lt;/head&gt;
@@ -243,9 +209,37 @@ namespace BibleDoEpubu.Properties {
         ///&lt;/body&gt;
         ///&lt;/html&gt;.
         /// </summary>
-        internal static string kniha_XX_poznamky {
+        internal static string kniha_poznamky {
             get {
-                return ResourceManager.GetString("kniha_XX_poznamky", resourceCulture);
+                return ResourceManager.GetString("kniha_poznamky", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;no&quot;?&gt;
+        ///
+        ///&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1//EN&quot;
+        ///&quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;
+        ///
+        ///&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xmlns:epub=&quot;http://www.idpf.org/2007/ops&quot;&gt;
+        ///&lt;head&gt;
+        ///  &lt;title&gt;{0}&lt;/title&gt;
+        ///  &lt;link href=&quot;../css/kniha.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;/&gt;
+        ///&lt;/head&gt;
+        ///
+        ///&lt;body&gt;
+        ///&lt;div&gt;
+        ///  &lt;img alt=&quot;{0}&quot; src=&quot;../img/logo.png&quot;/&gt;
+        ///&lt;/div&gt;
+        ///
+        ///&lt;p style=&quot;text-align: left;&quot;&gt;
+        ///  {0}&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
+        ///  Autor překladu: Alexandr Flek a kol.&lt;br/&gt;
+        ///  Vydal: B [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string kniha_uvod {
+            get {
+                return ResourceManager.GetString("kniha_uvod", resourceCulture);
             }
         }
         

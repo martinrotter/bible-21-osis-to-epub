@@ -1,22 +1,42 @@
-p {
-  text-align: justify;
+body {
+  line-height: 1.2;
 }
 
-.kurziva {
-  font-style: italic;
+body * {
+  line-height: inherit;
+}
+
+p {
+  text-align: justify;
 }
 
 h1, h2 {
   text-align: center;
 }
 
+sub {
+  font-size: 0.675em;
+  line-height: 1.2;
+  vertical-align: sub;
+  vertical-align: -20%;
+  color: gray;
+}
+
 sup {
+  font-size: 0.675em;
+  line-height: 1.2;
+  vertical-align: super;
+  vertical-align: 35%;
   color: gray;
   font-size: xx-small;
 }
 
 .poznamka {
   text-decoration: underline;
+}
+
+.kurziva {
+  font-style: italic;
 }
 
 .poezie {

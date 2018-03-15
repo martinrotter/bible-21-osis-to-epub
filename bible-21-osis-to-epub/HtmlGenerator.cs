@@ -225,7 +225,7 @@ namespace BibleDoEpubu
 
       File.WriteAllText(
         htmlSoubor,
-        Properties.Resources.bible_cela
+        Properties.Resources.bible_online_cela
           .Replace("{0}", bible.Metadata.Nazev)
           .Replace("{1}", string.Join("\n", sekce))
           .Replace("{2}", string.Join("\n", obsahy)),

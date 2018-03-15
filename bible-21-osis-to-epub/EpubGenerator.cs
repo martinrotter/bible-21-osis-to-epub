@@ -12,6 +12,14 @@ namespace BibleDoEpubu
 {
   internal class EpubGenerator
   {
+    #region Proměnné
+
+    private const string KnihaPoznamky = "kniha-poznamky.html";
+
+    private const string PodadresarHtml = "html";
+
+    #endregion
+
     #region Vlastnosti
 
     private Dictionary<int, List<PouzitaPoznamka>> PouzitePoznamky
@@ -27,6 +35,28 @@ namespace BibleDoEpubu
     public string VygenerovatKnihu(Kniha kniha, Bible bible, bool dlouheCislaVerse)
     {
       return VygenerovatCastTextu(kniha, kniha, bible, dlouheCislaVerse);
+    }
+
+    /// <summary>
+    /// Vrací ID string pro vlastní text poznámky.
+    /// </summary>
+    /// <param name="kniha"></param>
+    /// <param name="pozn"></param>
+    /// <returns></returns>
+    private string ZiskatIdPoznamky(Kniha kniha, PouzitaPoznamka pozn)
+    {
+      return $"p-{kniha.Id}-{pozn.Id}";
+    }
+
+    /// <summary>
+    /// Vrací ID string pro místo, kde je poznámka citovaná ([x]).
+    /// </summary>
+    /// <param name="kniha"></param>
+    /// <param name="pozn"></param>
+    /// <returns></returns>
+    private string ZiskatIdCitace(Kniha kniha, PouzitaPoznamka pozn)
+    {
+      return $"c-{kniha.Id}-{pozn.Id}";
     }
 
     private string VygenerovatCastTextu(CastTextu cast, Kniha kniha, Bible bible, bool dlouheCislaVerse)
@@ -93,12 +123,12 @@ namespace BibleDoEpubu
         PouzitaPoznamka poznamka = new PouzitaPoznamka
         {
           Text = stavec.ToString(),
-          Id = $"pozn-{PouzitePoznamky[poradiKnihy].Count + 1}"
+          Id = $"{PouzitePoznamky[poradiKnihy].Count + 1}"
         };
 
         PouzitePoznamky[poradiKnihy].Add(poznamka);
 
-        return $"<sup class=\"poznamka\"><a id=\"zpet-kniha-{poradiKnihy}-{poznamka.Id}\" href=\"kniha-XX-poznamky.html#kniha-{poradiKnihy}-{poznamka.Id}\" epub:type=\"noteref\">[{PouzitePoznamky[poradiKnihy].Count}]</a></sup>";
+        return $"<sup class=\"poznamka\"><a id=\"{ZiskatIdCitace(kniha, poznamka)}\" href=\"{KnihaPoznamky}#{ZiskatIdPoznamky(kniha, poznamka)}\" epub:type=\"noteref\">[{PouzitePoznamky[poradiKnihy].Count}]</a></sup> ";
       }
       else if (cast is Poezie)
       {
@@ -222,7 +252,7 @@ namespace BibleDoEpubu
       // úvodní nakladatelské informace, seznam knih.
       string obsahAdresar = Path.Combine(epubAdresar, "OEBPS");
       string metaAdresar = Path.Combine(epubAdresar, "META-INF");
-      string htmlAdresar = Path.Combine(obsahAdresar, "html");
+      string htmlAdresar = Path.Combine(obsahAdresar, PodadresarHtml);
       string cssAdresar = Path.Combine(obsahAdresar, "css");
       string obrazkyAdresar = Path.Combine(obsahAdresar, "img");
 
@@ -231,14 +261,13 @@ namespace BibleDoEpubu
       Directory.CreateDirectory(metaAdresar);
       Directory.CreateDirectory(obrazkyAdresar);
 
-      int pocitadloKnih = 1;
       List<string> manifesty = new List<string>();
       List<string> spine = new List<string>();
       StringBuilder htmlPoznamek = new StringBuilder();
 
       foreach (Kniha kniha in bible.Knihy)
       {
-        string nazevSouboruKnihy = $"kniha-{pocitadloKnih}-{kniha.Id}.html";
+        string nazevSouboruKnihy = ZiskatNazevSouboruKnihy(kniha);
         string souborKnihy = Path.Combine(htmlAdresar, nazevSouboruKnihy);
         string htmlMustr = Properties.Resources.kniha.Clone() as string;
         string htmlObsah = VygenerovatKnihu(kniha, bible, dlouhaCislaVerse);
@@ -250,26 +279,32 @@ namespace BibleDoEpubu
           bible.MapovaniZkratekKnih[kniha.Id],
           htmlObsah);
 
-        manifesty.Add($"<item href=\"html/{nazevSouboruKnihy}\" id=\"id-{nazevSouboruKnihy}\" media-type=\"application/xhtml+xml\"/>");
+        // Přidáme soubor do manifestu a do páteře.
+        manifesty.Add($"<item href=\"{PodadresarHtml}/{nazevSouboruKnihy}\" id=\"id-{nazevSouboruKnihy}\" media-type=\"application/xhtml+xml\"/>");
         spine.Add($"<itemref idref=\"id-{nazevSouboruKnihy}\"/>");
 
         File.WriteAllText(souborKnihy, htmlObsah, Encoding.UTF8);
 
-        if (PouzitePoznamky.ContainsKey(pocitadloKnih - 1))
-        {
-          htmlPoznamek.AppendLine($"<h2>{bible.MapovaniZkratekKnih[kniha.Id]}</h2>");
+        int poziceKnihy = bible.Knihy.IndexOf(kniha);
 
-          htmlPoznamek.AppendLine(string.Join(
-            "\n",
-            PouzitePoznamky[pocitadloKnih - 1].Select((pozn, idx) => $"<p id=\"kniha-{pocitadloKnih - 1}-{pozn.Id}\" epub:type=\"endnote\"><a href=\"{nazevSouboruKnihy}#zpet-kniha-{pocitadloKnih - 1}-{pozn.Id}\">[{idx + 1}]</a> {pozn.Text}</p>")));
+        // Zpracujeme poznámky z knihy.
+        if (!PouzitePoznamky.ContainsKey(poziceKnihy))
+        {
+          continue;
         }
 
-        pocitadloKnih++;
+        // Nadpis sekce poznámek pro tuto knihu.
+        htmlPoznamek.AppendLine($"<h2>{bible.MapovaniZkratekKnih[kniha.Id]}</h2>");
+
+        // Vlastní texty poznámek, každá poznámka je ve vlastním odstavci.
+        htmlPoznamek.AppendLine(string.Join(
+          "\n",
+          PouzitePoznamky[poziceKnihy].Select((pozn, idx) => $"<p id=\"{ZiskatIdPoznamky(kniha, pozn)}\" epub:type=\"endnote\"><a epub:type=\"noteref\" href=\"{nazevSouboruKnihy}#{ZiskatIdCitace(kniha, pozn)}\">[{pozn.Id}]</a> {pozn.Text}</p>")));
       }
 
-      string sumarPoznamek = string.Format(Properties.Resources.kniha_XX_poznamky, htmlPoznamek);
+      string sumarPoznamek = string.Format(Properties.Resources.kniha_poznamky, htmlPoznamek);
 
-      File.WriteAllText(Path.Combine(htmlAdresar, "kniha-XX-poznamky.html"), sumarPoznamek, Encoding.UTF8);
+      File.WriteAllText(Path.Combine(htmlAdresar, KnihaPoznamky), sumarPoznamek, Encoding.UTF8);
 
       // Kopírujeme a generujeme podpůrné soubory.
       File.WriteAllText(Path.Combine(cssAdresar, "kniha.css"), Properties.Resources.kniha_css);
@@ -287,17 +322,17 @@ namespace BibleDoEpubu
         bible.Revize.Datum.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
         string.Join("\n", manifesty),
         string.Join("\n", spine),
-        $"html/kniha-{1}-{bible.Knihy.First().Id}.html",
+        $"{PodadresarHtml}/{ZiskatNazevSouboruKnihy(bible.Knihy.First())}",
         bible.MapovaniZkratekKnih[bible.Knihy.First().Id]);
 
       File.WriteAllText(Path.Combine(obsahAdresar, "content.opf"), obsahOpf);
 
       // Generování úvodního souboru.
-      string uvodniSoubor = Properties.Resources.kniha_0_uvod;
+      string uvodniSoubor = Properties.Resources.kniha_uvod;
 
       uvodniSoubor = string.Format(uvodniSoubor, bible.Metadata.Nazev, bible.Revize.Datum.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
-      File.WriteAllText(Path.Combine(htmlAdresar, "kniha-0-uvod.html"), uvodniSoubor, Encoding.UTF8);
-      File.WriteAllText(Path.Combine(htmlAdresar, "kniha-0-cover.html"), Properties.Resources.kniha_0_cover, Encoding.UTF8);
+      File.WriteAllText(Path.Combine(htmlAdresar, "kniha-uvod.html"), uvodniSoubor, Encoding.UTF8);
+      File.WriteAllText(Path.Combine(htmlAdresar, "kniha-cover.html"), Properties.Resources.kniha_obalka, Encoding.UTF8);
 
       // Konverze zip -> epub.
       FastZip zip = new FastZip();
@@ -313,6 +348,11 @@ namespace BibleDoEpubu
         epubAdresar, true, string.Empty);
 
       return epubSoubor;
+    }
+
+    private string ZiskatNazevSouboruKnihy(Kniha kniha)
+    {
+      return $"kniha-{kniha.Id}.html";
     }
 
     #endregion
