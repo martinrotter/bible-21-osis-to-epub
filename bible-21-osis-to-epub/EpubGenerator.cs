@@ -222,7 +222,7 @@ namespace BibleDoEpubu
       StringBuilder bldr = new StringBuilder(id)
       {
         [id.IndexOf('.')] = ' ',
-        [id.LastIndexOf('.')] = ':'
+        [id.LastIndexOf('.')] = ','
       };
 
       return bldr.ToString();
