@@ -98,7 +98,7 @@ namespace BibleDoEpubu
         };
 
         PouzitePoznamky.Add(poznamka);
-        return $"<sup class=\"poznamka\"><a href=\"#\" data-html=\"true\" data-toggle=\"tooltip\" title=\"{HttpUtility.HtmlEncode(poznamka.Text)}\">[{PouzitePoznamky.Count}]</a></sup>";
+        return $"<sup class=\"poznamka\"><a href=\"#\" data-html=\"true\" data-toggle=\"tooltip\" title=\"{HttpUtility.HtmlEncode(poznamka.Text)}\">[{PouzitePoznamky.Count}]</a></sup> ";
       }
       else if (cast is Poezie)
       {
