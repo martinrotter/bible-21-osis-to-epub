@@ -14,12 +14,16 @@ h1, h2 {
   text-align: center;
 }
 
+h3, h4, h5, h6 {
+  text-align: left;
+}
+
 sub {
   font-size: 0.675em;
   line-height: 1.2;
   vertical-align: sub;
   vertical-align: -20%;
-  color: gray;
+  color: rgb(150, 150, 150);
 }
 
 sup {
@@ -27,8 +31,7 @@ sup {
   line-height: 1.2;
   vertical-align: super;
   vertical-align: 35%;
-  color: gray;
-  font-size: xx-small;
+  color: rgb(150, 150, 150);
 }
 
 .poznamka {
@@ -40,6 +43,4 @@ sup {
 }
 
 .poezie {
-  margin-top: 24px;
-  margin-bottom: 24px;
 }
