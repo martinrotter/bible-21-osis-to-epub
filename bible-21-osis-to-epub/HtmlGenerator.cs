@@ -219,8 +219,8 @@ namespace BibleDoEpubu
 
       foreach (Kniha kniha in bible.Knihy)
       {
-        sekce.Add($"<a class=\"dropdown-item\" href=\"#{kniha.Id}\">{bible.MapovaniZkratekKnih[kniha.Id]}</a>");
-        obsahy.Add($"<a class=\"anchor\" id=\"{kniha.Id}\"></a><h1>{bible.MapovaniZkratekKnih[kniha.Id]}</h1>" + VygenerovatKnihu(kniha, bible, dlouhaCislaVerse));
+        sekce.Add($"<a class=\"dropdown-item\" href=\"#{kniha.Id}\">{bible.MapovaniZkratekKnih[kniha.Id].Nadpis}</a>");
+        obsahy.Add($"<a class=\"anchor\" id=\"{kniha.Id}\"></a><h1>{bible.MapovaniZkratekKnih[kniha.Id].Nadpis}</h1>" + VygenerovatKnihu(kniha, bible, dlouhaCislaVerse));
       }
 
       File.WriteAllText(

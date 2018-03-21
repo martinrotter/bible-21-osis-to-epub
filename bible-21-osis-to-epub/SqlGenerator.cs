@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Text;
-using System.Web;
 using BibleDoEpubu.ObjektovyModel;
 
 namespace BibleDoEpubu
@@ -27,11 +23,11 @@ namespace BibleDoEpubu
       StringBuilder stavec = new StringBuilder();
       int poradi = 1;
 
-
       foreach (Kniha kniha in bible.Knihy)
       {
         stavec.Append($"INSERT INTO bible_knihy (id, kod, nazev, order) VALUES " +
-                      $"({poradi}, {kniha.Id}, {bible.MapovaniZkratekKnih[kniha.Id]}, {poradi});\n");
+                      $"({poradi}, {kniha.Id}, {bible.MapovaniZkratekKnih[kniha.Id].Nadpis}, {poradi});\n");
+
         stavec.Append(VygenerovatSqlProKnihu(bible, kniha, poradi++));
       }
 
@@ -40,8 +36,6 @@ namespace BibleDoEpubu
 
     public string VygenerovatSqlProKnihu(Bible bible, Kniha kniha, int poradi)
     {
-      
-
       return string.Empty;
     }
 
@@ -51,19 +45,15 @@ namespace BibleDoEpubu
 
       if (cast is HlavniCastKnihy)
       {
-
       }
       else if (cast is UvodKapitoly)
       {
-
       }
       else if (cast is CastKnihy)
       {
-
       }
       else if (cast is Vers)
       {
-
       }
 
       return stavec.ToString();

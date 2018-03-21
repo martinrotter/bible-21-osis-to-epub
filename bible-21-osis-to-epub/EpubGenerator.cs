@@ -95,7 +95,7 @@ namespace BibleDoEpubu
       {
         StringBuilder stavec = new StringBuilder();
 
-        stavec.Append($"<sup>{(dlouheCislaVerse ? ZiskatDlouheCisloVerse((cast as Vers).Id) : ZiskatKratkeCisloVerse((cast as Vers).Id))}</sup>");
+        stavec.Append($"<sup>{(dlouheCislaVerse ? ZiskatDlouheCisloVerse(bible, (cast as Vers).Id) : ZiskatKratkeCisloVerse((cast as Vers).Id))}</sup>");
 
         foreach (CastTextu potomek in cast.Potomci)
         {
@@ -217,8 +217,13 @@ namespace BibleDoEpubu
       return id.Substring(id.LastIndexOf('.') + 1);
     }
 
-    private static string ZiskatDlouheCisloVerse(string id)
+    private static string ZiskatDlouheCisloVerse(Bible bible, string id)
     {
+      string anglickaKniha = id.Substring(0, id.IndexOf('.'));
+      string ceskaKniha = bible.MapovaniZkratekKnih[anglickaKniha].CeskaZkratka;
+
+      id = id.Replace(anglickaKniha, ceskaKniha);
+
       StringBuilder bldr = new StringBuilder(id)
       {
         [id.IndexOf('.')] = ' ',
@@ -272,11 +277,11 @@ namespace BibleDoEpubu
         string htmlMustr = Properties.Resources.kniha.Clone() as string;
         string htmlObsah = VygenerovatKnihu(kniha, bible, dlouhaCislaVerse);
 
-        htmlObsah = $"<h1>{bible.MapovaniZkratekKnih[kniha.Id]}</h1>" + htmlObsah;
+        htmlObsah = $"<h1>{bible.MapovaniZkratekKnih[kniha.Id].Nadpis}</h1>" + htmlObsah;
 
         htmlObsah = string.Format(
           htmlMustr ?? throw new InvalidOperationException(),
-          bible.MapovaniZkratekKnih[kniha.Id],
+          bible.MapovaniZkratekKnih[kniha.Id].Nadpis,
           htmlObsah);
 
         // Přidáme soubor do manifestu a do páteře.
@@ -294,7 +299,7 @@ namespace BibleDoEpubu
         }
 
         // Nadpis sekce poznámek pro tuto knihu.
-        htmlPoznamek.AppendLine($"<h2>{bible.MapovaniZkratekKnih[kniha.Id]}</h2>");
+        htmlPoznamek.AppendLine($"<h2>{bible.MapovaniZkratekKnih[kniha.Id].Nadpis}</h2>");
 
         // Vlastní texty poznámek, každá poznámka je ve vlastním odstavci.
         htmlPoznamek.AppendLine(string.Join(
@@ -323,7 +328,7 @@ namespace BibleDoEpubu
         string.Join("\n", manifesty),
         string.Join("\n", spine),
         $"{PodadresarHtml}/{ZiskatNazevSouboruKnihy(bible.Knihy.First())}",
-        bible.MapovaniZkratekKnih[bible.Knihy.First().Id]);
+        bible.MapovaniZkratekKnih[bible.Knihy.First().Id].Nadpis);
 
       File.WriteAllText(Path.Combine(obsahAdresar, "content.opf"), obsahOpf);
 

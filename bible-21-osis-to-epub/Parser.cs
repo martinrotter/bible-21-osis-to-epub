@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Xml;
 using BibleDoEpubu.ObjektovyModel;
@@ -27,6 +28,7 @@ namespace BibleDoEpubu
       XmlDocument xml = new XmlDocument();
       NsManager = VygenerovatNamespaceManager(xml);
 
+      xml.PreserveWhitespace = false;
       xml.Load(xmlOsisSoubor);
 
       XmlNode osisText = xml.SelectSingleNode("/os:osis/os:osisText", NsManager);
@@ -244,8 +246,10 @@ namespace BibleDoEpubu
             // Máme čistě textový záznam.
             CastTextuSTextem textovaCast = new CastTextuSTextem
             {
-              // TrimEnd('\n', '\r', ' ')
-              TextovaData = HttpUtility.HtmlEncode(xmlPotomek.Value)
+              TextovaData = HttpUtility.HtmlEncode(Regex.Replace(
+                xmlPotomek.Value,
+                "[\\n\\r ]+$",
+                " "))
             };
 
             rodic.PridatPotomka(textovaCast);
