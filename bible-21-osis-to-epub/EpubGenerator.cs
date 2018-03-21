@@ -134,14 +134,14 @@ namespace BibleDoEpubu
       {
         StringBuilder stavec = new StringBuilder();
 
-        stavec.Append("<p class=\"poezie\">");
+        stavec.Append("<div class=\"poezie\"><p>");
 
         foreach (CastTextu potomek in cast.Potomci)
         {
           stavec.Append(VygenerovatCastTextu(potomek, kniha, bible, dlouheCislaVerse));
         }
 
-        stavec.Append("</p>");
+        stavec.Append("</p></div>");
 
         return stavec.ToString();
       }
