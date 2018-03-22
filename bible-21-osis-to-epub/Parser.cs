@@ -246,10 +246,16 @@ namespace BibleDoEpubu
             // Máme čistě textový záznam.
             CastTextuSTextem textovaCast = new CastTextuSTextem
             {
-              TextovaData = HttpUtility.HtmlEncode(Regex.Replace(
+              /*
+               TextovaData = HttpUtility.HtmlEncode(Regex.Replace(
                 xmlPotomek.Value,
                 "[\\n\\r ]+$",
                 " "))
+              */
+              TextovaData = Regex.Replace(
+                xmlPotomek.Value,
+                "[\\n\\r ]+$",
+                " ")
             };
 
             rodic.PridatPotomka(textovaCast);
