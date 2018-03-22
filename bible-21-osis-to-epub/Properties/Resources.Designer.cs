@@ -113,8 +113,7 @@ namespace BibleDoEpubu.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;no&quot;?&gt;
         ///
-        ///&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1//EN&quot;
-        ///&quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;
+        ///&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1//EN&quot; &quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;
         ///
         ///&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xmlns:epub=&quot;http://www.idpf.org/2007/ops&quot;&gt;
         ///&lt;head&gt;
@@ -134,31 +133,51 @@ namespace BibleDoEpubu.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to p {
-        ///  text-align: justify;
+        ///   Looks up a localized string similar to body {
+        ///  line-height: 1.2;
         ///}
         ///
-        ///.kurziva {
-        ///  font-style: italic;
+        ///body * {
+        ///  line-height: inherit;
+        ///}
+        ///
+        ///p {
+        ///  text-align: justify;
         ///}
         ///
         ///h1, h2 {
         ///  text-align: center;
         ///}
         ///
+        ///h3, h4, h5, h6 {
+        ///  text-align: left;
+        ///}
+        ///
+        ///sub {
+        ///  font-size: 0.675em;
+        ///  line-height: 1.2;
+        ///  vertical-align: sub;
+        ///  vertical-align: -20%;
+        ///  color: rgb(150, 150, 150);
+        ///}
+        ///
         ///sup {
-        ///  color: gray;
-        ///  font-size: xx-small;
+        ///  font-size: 0.675em;
+        ///  line-height: 1.2;
+        ///  vertical-align: super;
+        ///  vertical-align: 35%;
+        ///  color: rgb(150, 150, 150);
         ///}
         ///
         ///.poznamka {
         ///  text-decoration: underline;
         ///}
         ///
-        ///.poezie {
-        ///  margin-top: 24px;
-        ///  margin-bottom: 24px;
-        ///}.
+        ///.kurziva {
+        ///  font-style: italic;
+        ///}
+        ///
+        ///.poezi [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string kniha_css {
             get {
@@ -212,6 +231,33 @@ namespace BibleDoEpubu.Properties {
         internal static string kniha_poznamky {
             get {
                 return ResourceManager.GetString("kniha_poznamky", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xmlns:epub=&quot;http://www.idpf.org/2007/ops&quot;&gt;
+        ///  &lt;head&gt;
+        ///    &lt;title&gt;{0}&lt;/title&gt;
+        ///    &lt;meta charset=&quot;utf-8&quot;/&gt;
+        ///  &lt;/head&gt;
+        ///  &lt;body&gt;
+        ///    &lt;section epub:type=&quot;frontmatter toc&quot;&gt;
+        ///    &lt;header&gt;
+        ///      &lt;h1&gt;Obsah&lt;/h1&gt;
+        ///    &lt;/header&gt;
+        ///    &lt;nav xmlns:epub=&quot;http://www.idpf.org/2007/ops&quot; epub:type=&quot;toc&quot; id=&quot;toc&quot;&gt;
+        ///      &lt;ol&gt;
+        ///        {1}
+        ///      &lt;/ol&gt;
+        ///    &lt;/nav&gt;
+        ///    &lt;/section&gt;
+        ///  &lt;/body&gt;
+        ///&lt;/html&gt;.
+        /// </summary>
+        internal static string kniha_toc {
+            get {
+                return ResourceManager.GetString("kniha_toc", resourceCulture);
             }
         }
         

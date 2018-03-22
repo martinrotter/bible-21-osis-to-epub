@@ -43,7 +43,7 @@ namespace BibleDoEpubu
     /// <param name="kniha"></param>
     /// <param name="pozn"></param>
     /// <returns></returns>
-    private string ZiskatIdPoznamky(Kniha kniha, PouzitaPoznamka pozn)
+    private static string ZiskatIdPoznamky(Kniha kniha, PouzitaPoznamka pozn)
     {
       return $"p-{kniha.Id}-{pozn.Id}";
     }
@@ -54,7 +54,7 @@ namespace BibleDoEpubu
     /// <param name="kniha"></param>
     /// <param name="pozn"></param>
     /// <returns></returns>
-    private string ZiskatIdCitace(Kniha kniha, PouzitaPoznamka pozn)
+    private static string ZiskatIdCitace(Kniha kniha, PouzitaPoznamka pozn)
     {
       return $"c-{kniha.Id}-{pozn.Id}";
     }
@@ -65,7 +65,7 @@ namespace BibleDoEpubu
       {
         StringBuilder stavec = new StringBuilder();
 
-        stavec.Append($"<h2>{(cast as HlavniCastKnihy).Nadpis}</h2>\n");
+        stavec.Append($"<h2>{((HlavniCastKnihy) cast).Nadpis}</h2>\n");
 
         foreach (CastTextu potomek in cast.Potomci)
         {
@@ -78,7 +78,7 @@ namespace BibleDoEpubu
       {
         StringBuilder stavec = new StringBuilder();
 
-        stavec.Append($"<h4>{(cast as CastKnihy).Nadpis}</h4>\n");
+        stavec.Append($"<h4>{((CastKnihy) cast).Nadpis}</h4>\n");
 
         foreach (CastTextu potomek in cast.Potomci)
         {
@@ -89,13 +89,13 @@ namespace BibleDoEpubu
       }
       else if (cast is UvodKapitoly)
       {
-        return $"<h3>Kapitola {ZiskatKratkeCisloVerse((cast as UvodKapitoly).Id)}</h3>\n";
+        return $"<h3 id=\"{ZiskatIdKapitoly(((UvodKapitoly) cast).Id)}\">Kapitola {ZiskatKratkeCisloVerse(((UvodKapitoly) cast).Id)}</h3>\n";
       }
       else if (cast is Vers)
       {
         StringBuilder stavec = new StringBuilder();
 
-        stavec.Append($"<sup>{(dlouheCislaVerse ? ZiskatDlouheCisloVerse(bible, (cast as Vers).Id) : ZiskatKratkeCisloVerse((cast as Vers).Id))}</sup>");
+        stavec.Append($"<sup>{(dlouheCislaVerse ? ZiskatDlouheCisloVerse(bible, (cast as Vers).Id) : ZiskatKratkeCisloVerse(((Vers) cast).Id))}</sup>");
 
         foreach (CastTextu potomek in cast.Potomci)
         {
@@ -212,6 +212,16 @@ namespace BibleDoEpubu
       }
     }
 
+    private static string ZiskatIdKapitoly(string puvodniIdKapitoly)
+    {
+      return $"kap-{puvodniIdKapitoly}";
+    }
+
+    private static string ZiskatIdKnihy(string puvodniIdKnihy)
+    {
+      return $"kni-{puvodniIdKnihy}";
+    }
+
     private static string ZiskatKratkeCisloVerse(string id)
     {
       return id.Substring(id.LastIndexOf('.') + 1);
@@ -268,6 +278,7 @@ namespace BibleDoEpubu
 
       List<string> manifesty = new List<string>();
       List<string> spine = new List<string>();
+      StringBuilder tocVnitrek = new StringBuilder();
       StringBuilder htmlPoznamek = new StringBuilder();
 
       foreach (Kniha kniha in bible.Knihy)
@@ -277,12 +288,15 @@ namespace BibleDoEpubu
         string htmlMustr = Properties.Resources.kniha.Clone() as string;
         string htmlObsah = VygenerovatKnihu(kniha, bible, dlouhaCislaVerse);
 
-        htmlObsah = $"<h1>{bible.MapovaniZkratekKnih[kniha.Id].Nadpis}</h1>" + htmlObsah;
+        htmlObsah = $"<h1 id=\"{ZiskatIdKnihy(kniha.Id)}\">{bible.MapovaniZkratekKnih[kniha.Id].Nadpis}</h1>" + htmlObsah;
 
         htmlObsah = string.Format(
           htmlMustr ?? throw new InvalidOperationException(),
           bible.MapovaniZkratekKnih[kniha.Id].Nadpis,
           htmlObsah);
+
+        // Vygenerujeme část TOC.
+        tocVnitrek.AppendLine($"<li><a href=\"{nazevSouboruKnihy}\">{bible.MapovaniZkratekKnih[kniha.Id].Nadpis}</a></li>");
 
         // Přidáme soubor do manifestu a do páteře.
         manifesty.Add($"<item href=\"{PodadresarHtml}/{nazevSouboruKnihy}\" id=\"id-{nazevSouboruKnihy}\" media-type=\"application/xhtml+xml\"/>");
@@ -331,6 +345,12 @@ namespace BibleDoEpubu
         bible.MapovaniZkratekKnih[bible.Knihy.First().Id].Nadpis);
 
       File.WriteAllText(Path.Combine(obsahAdresar, "content.opf"), obsahOpf);
+
+      // Generování TOC.
+      string tocData = Properties.Resources.kniha_toc;
+
+      tocData = string.Format(tocData, bible.Metadata.Nazev, tocVnitrek);
+      File.WriteAllText(Path.Combine(htmlAdresar, "kniha-toc.html"), tocData, Encoding.UTF8);
 
       // Generování úvodního souboru.
       string uvodniSoubor = Properties.Resources.kniha_uvod;

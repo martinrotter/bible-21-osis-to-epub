@@ -165,7 +165,7 @@ namespace BibleDoEpubu
             }
             else if (xmlPotomek.Name == "chapter")
             {
-              if (xmlPotomekElem.HasAttribute("osisID"))
+              if (xmlPotomekElem.HasAttribute("osisID") && xmlPotomekElem.HasAttribute("sID"))
               {
                 UvodKapitoly uvodKapitoly = new UvodKapitoly
                 {

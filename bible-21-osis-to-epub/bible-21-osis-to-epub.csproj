@@ -115,5 +115,8 @@
   <ItemGroup>
     <None Include="Resources\bible-online-cela.html" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kniha-toc.html" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

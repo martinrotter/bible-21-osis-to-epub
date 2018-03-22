@@ -36,6 +36,23 @@ namespace BibleDoEpubu.ObjektovyModel
       potomek.Rodic = this;
     }
 
+    public List<T> ZiskatRekurzivniPotomky<T>() where T : CastTextu
+    {
+      List<T> potomci = new List<T>();
+
+      if (this is T)
+      {
+        potomci.Add(this as T);
+      }
+
+      foreach (CastTextu potomek in Potomci)
+      {
+        potomci.AddRange(potomek.ZiskatRekurzivniPotomky<T>());
+      }
+
+      return potomci;
+    }
+
     public void OdstranitPotomka(CastTextu potomek)
     {
       Potomci.Remove(potomek);
