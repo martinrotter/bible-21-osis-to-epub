@@ -134,27 +134,27 @@ namespace BibleDoEpubu
       {
         StringBuilder stavec = new StringBuilder();
 
-        stavec.Append("<div class=\"poezie\"><p>");
+        stavec.Append("<div class=\"poezie\">");
 
         foreach (CastTextu potomek in cast.Potomci)
         {
           stavec.Append(VygenerovatCastTextu(potomek, kniha, bible, dlouheCislaVerse));
         }
 
-        stavec.Append("</p></div>");
+        stavec.Append("</div>");
 
         return stavec.ToString();
       }
       else if (cast is RadekPoezie)
       {
-        StringBuilder stavec = new StringBuilder();
+        StringBuilder stavec = new StringBuilder("<p>");
 
         foreach (CastTextu potomek in cast.Potomci)
         {
           stavec.Append(VygenerovatCastTextu(potomek, kniha, bible, dlouheCislaVerse));
         }
 
-        stavec.Append("<br/>");
+        stavec.Append("</p>");
 
         return stavec.ToString();
       }

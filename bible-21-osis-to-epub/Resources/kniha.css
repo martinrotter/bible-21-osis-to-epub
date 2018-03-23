@@ -44,4 +44,11 @@ sup {
 
 .poezie {
   margin-left: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.poezie > p {
+  margin-top: 0;
+  margin-bottom: 0;
 }
