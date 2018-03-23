@@ -179,15 +179,15 @@ namespace BibleDoEpubu
 
         if ((cast as FormatovaniTextu).Kurziva)
         {
-          stavec.Append("<span class=\"kurziva\">");
-        }
+          stavec.Append("<i>");
 
-        foreach (CastTextu potomek in cast.Potomci)
-        {
-          stavec.Append(VygenerovatCastTextu(potomek, kniha, bible, dlouheCislaVerse));
-        }
+          foreach (CastTextu potomek in cast.Potomci)
+          {
+            stavec.Append(VygenerovatCastTextu(potomek, kniha, bible, dlouheCislaVerse));
+          }
 
-        stavec.Append("</span>");
+          stavec.Append("</i>");
+        }
 
         return stavec.ToString();
       }
@@ -296,7 +296,22 @@ namespace BibleDoEpubu
           htmlObsah);
 
         // Vygenerujeme část TOC.
-        tocVnitrek.AppendLine($"<li><a href=\"{nazevSouboruKnihy}\">{bible.MapovaniZkratekKnih[kniha.Id].Nadpis}</a></li>");
+        List<UvodKapitoly> podkapitoly = kniha.ZiskatRekurzivniPotomky<UvodKapitoly>();
+
+        if (podkapitoly.Any())
+        {
+          string podkapitolyVnitrek = string.Join(
+            "\n",
+            podkapitoly.Select(kap => $"<li><a href=\"{nazevSouboruKnihy}#{ZiskatIdKapitoly(kap.Id)}\">Kapitola {ZiskatKratkeCisloVerse(kap.Id)}</a></li>"));
+
+          tocVnitrek.AppendLine(
+            $"<li><a href=\"{nazevSouboruKnihy}\">" +
+            $"{bible.MapovaniZkratekKnih[kniha.Id].Nadpis}</a><ol>{podkapitolyVnitrek}</ol></li>");
+        }
+        else
+        {
+          tocVnitrek.AppendLine($"<li><a href=\"{nazevSouboruKnihy}\">{bible.MapovaniZkratekKnih[kniha.Id].Nadpis}</a></li>");
+        }
 
         // Přidáme soubor do manifestu a do páteře.
         manifesty.Add($"<item href=\"{PodadresarHtml}/{nazevSouboruKnihy}\" id=\"id-{nazevSouboruKnihy}\" media-type=\"application/xhtml+xml\"/>");
@@ -347,6 +362,9 @@ namespace BibleDoEpubu
       File.WriteAllText(Path.Combine(obsahAdresar, "content.opf"), obsahOpf);
 
       // Generování TOC.
+      tocVnitrek.Insert(0, $"<li><a href=\"kniha-uvod.html\">Úvod</a></li>");
+      tocVnitrek.AppendLine($"<li><a href=\"kniha-toc.html\">Obsah</a></li>");
+
       string tocData = Properties.Resources.kniha_toc;
 
       tocData = string.Format(tocData, bible.Metadata.Nazev, tocVnitrek);

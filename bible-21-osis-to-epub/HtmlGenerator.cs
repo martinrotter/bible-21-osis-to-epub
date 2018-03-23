@@ -149,15 +149,15 @@ namespace BibleDoEpubu
 
         if ((cast as FormatovaniTextu).Kurziva)
         {
-          stavec.Append("<span class=\"kurziva\">");
-        }
+          stavec.Append("<i>");
 
-        foreach (CastTextu potomek in cast.Potomci)
-        {
-          stavec.Append(VygenerovatCastTextu(potomek, kniha, bible, dlouheCislaVerse));
-        }
+          foreach (CastTextu potomek in cast.Potomci)
+          {
+            stavec.Append(VygenerovatCastTextu(potomek, kniha, bible, dlouheCislaVerse));
+          }
 
-        stavec.Append("</span>");
+          stavec.Append("</i>");
+        }
 
         return stavec.ToString();
       }
