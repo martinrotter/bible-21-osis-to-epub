@@ -71,7 +71,7 @@ namespace BibleDoEpubu.ObjektovyModel
         {"Ps", "Ž;Žalmy"},
         {"Prov", "Př;Přísloví"},
         {"Eccl", "Kaz;Kazatel"},
-        {"Song", "Pís;Píseň"},
+        {"Song", "Pís;Píseň písní"},
         {"Isa", "Iz;Izaiáš"},
         {"Jer", "Jr;Jeremiáš"},
         {"Lam", "Pl;Pláč"},
@@ -91,15 +91,15 @@ namespace BibleDoEpubu.ObjektovyModel
         {"Mal", "Mal;Malachiáš"},
 
         // Deuterokanické knihy (ke Starému zákonu).
-        {"Tob", "Tób;Tóbiáš"},
-        {"Bar", "Bár;Báruk"},
-        {"AddEsth", "Estp;Ester (přídavky)"},
-        {"AddDan", "Danp;Daniel (přídavky)"},
-        {"Sir", "Sír;Sírach"},
-        {"Jdt", "Júd;Júdit"},
-        {"Wis", "Sap;Moudrost Šalamounova"},
-        {"1Macc", "1Mak;1. Makabejských"},
-        {"2Macc", "2Mak;2. Makabejských"},
+        {"Tob", "Tob;Tobiáš"},
+        {"Bar", "Bar;Baruch"},
+        {"AddEsth", "Estp;Ester"},
+        {"AddDan", "Danp;Přídavky k Danielovi"},
+        {"Sir", "Sír;Sirachovec"},
+        {"Jdt", "Jud;Judita"},
+        {"Wis", "Mdr;Moudrost Šalomounova"},
+        {"1Macc", "1Mak;1. Makabejská"},
+        {"2Macc", "2Mak;2. Makabejská"},
 
         // Nový zákon.
         {"Matt", "Mt;Matouš"},
