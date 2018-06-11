@@ -118,5 +118,8 @@
   <ItemGroup>
     <None Include="Resources\kniha-toc.html" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sql-sablona.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

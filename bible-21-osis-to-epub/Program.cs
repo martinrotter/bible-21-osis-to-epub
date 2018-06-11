@@ -12,7 +12,7 @@ namespace BibleDoEpubu
     {
       Parser parser = new Parser();
       Bible bible = parser.NacistBibli(args.First());
-
+      /*
       EpubGenerator epubGenerator = new EpubGenerator();
 
       epubGenerator.VygenerovatEpub(bible, true);
@@ -22,6 +22,10 @@ namespace BibleDoEpubu
 
       htmlGenerator.VygenerovatHtml(bible, true);
       htmlGenerator.VygenerovatHtml(bible, false);
+      */
+      SqlGenerator sqlGenerator = new SqlGenerator();
+
+      sqlGenerator.VygenerovatSql(bible);
 
       Console.WriteLine("Hotovo...");
     }

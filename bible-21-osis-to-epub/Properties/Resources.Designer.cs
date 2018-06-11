@@ -149,6 +149,11 @@ namespace BibleDoEpubu.Properties {
         ///  text-align: center;
         ///}
         ///
+        ///h1 {
+        ///  font-variant: small-caps;
+        ///  color: rgb(153, 0, 0);
+        ///}
+        ///
         ///h3, h4, h5, h6 {
         ///  text-align: left;
         ///}
@@ -170,14 +175,7 @@ namespace BibleDoEpubu.Properties {
         ///}
         ///
         ///.poznamka {
-        ///  text-decoration: underline;
-        ///}
-        ///
-        ///.kurziva {
-        ///  font-style: italic;
-        ///}
-        ///
-        ///.poezi [rest of string was truncated]&quot;;.
+        ///  text-decorat [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string kniha_css {
             get {
@@ -278,10 +276,9 @@ namespace BibleDoEpubu.Properties {
         ///  &lt;img alt=&quot;{0}&quot; src=&quot;../img/logo.png&quot;/&gt;
         ///&lt;/div&gt;
         ///
-        ///&lt;p style=&quot;text-align: left;&quot;&gt;
-        ///  {0}&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
-        ///  Autor překladu: Alexandr Flek a kol.&lt;br/&gt;
-        ///  Vydal: B [rest of string was truncated]&quot;;.
+        ///&lt;p class=&quot;zlomit-za&quot; style=&quot;text-align: left;&quot;&gt;
+        ///  {0}&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;
+        ///  Autor překladu: Alexandr Flek [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string kniha_uvod {
             get {
@@ -306,6 +303,30 @@ namespace BibleDoEpubu.Properties {
             get {
                 object obj = ResourceManager.GetObject("mimetype", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SET SQL_MODE=&quot;NO_AUTO_VALUE_ON_ZERO&quot;;
+        ///SET time_zone = &quot;+00:00&quot;;
+        ///
+        ///CREATE TABLE IF NOT EXISTS `bible_knihy` (
+        ///  `id` int(11) NOT NULL AUTO_INCREMENT,
+        ///  `kod` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+        ///  `nazev` varchar(255) NOT NULL,
+        ///  `order` int(11) NOT NULL,
+        ///  PRIMARY KEY (`id`),
+        ///  UNIQUE KEY `kod` (`kod`),
+        ///  UNIQUE KEY `order` (`order`)
+        ///) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+        ///
+        ///CREATE TABLE IF NOT EXISTS `bible_nadpisy` (
+        ///  `id` int(11) NOT NULL AUTO_INCREMENT,
+        ///  `kniha_id` int(11) NOT NULL, [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string sql_sablona {
+            get {
+                return ResourceManager.GetString("sql_sablona", resourceCulture);
             }
         }
     }
