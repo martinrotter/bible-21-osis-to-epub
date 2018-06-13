@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using BibleDoEpubu.ObjektovyModel;
 
 namespace BibleDoEpubu
@@ -16,6 +17,12 @@ namespace BibleDoEpubu
       set;
     }
 
+    private List<string> Nadpisy
+    {
+      get;
+      set;
+    } = new List<string>();
+
     private int PocitadloKapitol
     {
       get;
@@ -23,6 +30,12 @@ namespace BibleDoEpubu
     }
 
     private int PocitadloNadpisu
+    {
+      get;
+      set;
+    }
+
+    private int GlobalniPocitadloVersu
     {
       get;
       set;
@@ -61,6 +74,12 @@ namespace BibleDoEpubu
       get;
     } = new StringBuilder();
 
+    private List<string> Verse
+    {
+      get;
+      set;
+    } = new List<string>();
+
     #endregion
 
     #region Metody
@@ -77,14 +96,20 @@ namespace BibleDoEpubu
         PocitadloKapitol = 0;
         PocitadloVerse = 0;
         AktualniTextVerse = string.Empty;
+        Nadpisy.Clear();
+        Verse.Clear();
 
-        StavecKnihy.Append("INSERT INTO bible_knihy (id, kod, nazev, order) VALUES " +
+        StavecKnihy.Append("INSERT INTO bible_knihy (id, kod, nazev, `order`) VALUES " +
                            $"({poradi + 1}, '{kniha.Id}', '{bible.MapovaniZkratekKnih[kniha.Id].Nadpis}', {poradi + 1});\n");
 
-        Tuple<StringBuilder, StringBuilder> nadpisyVerseKnihy = VygenerovatSqlProKnihu(bible, kniha);
+        VygenerovatSqlProKnihu(bible, kniha);
 
-        StavecNadpisy.Append(nadpisyVerseKnihy.Item1);
-        StavecVerse.Append(nadpisyVerseKnihy.Item2);
+        StavecNadpisy.Append(string.Join(string.Empty, Nadpisy));
+        StavecNadpisy.AppendLine();
+
+        StavecVerse.Append("INSERT INTO bible_verse (kniha_id, kapitola, vers, text, stripped, `order`) VALUES \n");
+        StavecVerse.Append(string.Join(",\n", Verse));
+        StavecVerse.Append(";");
       }
 
       string pracovniAdresar = Environment.CurrentDirectory;
@@ -99,84 +124,116 @@ namespace BibleDoEpubu
       return sqlSoubor;
     }
 
-    public Tuple<StringBuilder, StringBuilder> VygenerovatSqlProKnihu(Bible bible, Kniha kniha)
+    public void VygenerovatSqlProKnihu(Bible bible, Kniha kniha)
     {
-      var dataKnihy = VygenerovatCastSql(kniha, bible, kniha);
-      return dataKnihy;
+      VygenerovatCastSql(kniha, bible, kniha);
     }
 
-    public Tuple<StringBuilder, StringBuilder> VygenerovatCastSql(CastTextu cast, Bible bible, Kniha kniha)
+    public void VygenerovatCastSql(CastTextu cast, Bible bible, Kniha kniha)
     {
-      StringBuilder nadpisy = new StringBuilder();
-      StringBuilder verse = new StringBuilder();
-
-      if (cast is HlavniCastKnihy hlavniCast)
+      if (cast is HlavniCastKnihy || cast is CastKnihy)
       {
-        VlozitSqlNadpis(nadpisy, hlavniCast.Nadpis);
-        PocitadloNadpisu++;
+        PridatRozpracovanyVers();
+        PocitadloVerse = 1;
+
+        VlozitSqlNadpis(cast is HlavniCastKnihy knihy ? knihy.Nadpis : ((CastKnihy) cast).Nadpis);
 
         foreach (CastTextu potomek in cast.Potomci)
         {
-          Tuple<StringBuilder, StringBuilder> sqlCast = VygenerovatCastSql(potomek, bible, kniha);
-
-          nadpisy.Append(sqlCast.Item1);
-          verse.Append(sqlCast.Item2);
-        }
-      }
-      else if (cast is CastKnihy castKnihy)
-      {
-        VlozitSqlNadpis(nadpisy, castKnihy.Nadpis);
-        PocitadloNadpisu++;
-
-        foreach (CastTextu potomek in cast.Potomci)
-        {
-          Tuple<StringBuilder, StringBuilder> sqlCast = VygenerovatCastSql(potomek, bible, kniha);
-
-          nadpisy.Append(sqlCast.Item1);
-          verse.Append(sqlCast.Item2);
+          VygenerovatCastSql(potomek, bible, kniha);
         }
       }
       else if (cast is UvodKapitoly)
       {
-        PocitadloKapitol++;
+        PridatRozpracovanyVers();
         PocitadloVerse = 1;
+
+        PocitadloKapitol++;
       }
       else if (cast is Vers)
       {
-        if (!string.IsNullOrEmpty(AktualniTextVerse))
-        {
-          // TODO: přidej aktualní verš?
-        }
-
-        PocitadloVerse++;
-        AktualniTextVerse = string.Empty;
-
+        PridatRozpracovanyVers();
+      }
+      else if (cast is Poezie)
+      {
         foreach (CastTextu potomek in cast.Potomci)
         {
-          Tuple<StringBuilder, StringBuilder> sqlCast = VygenerovatCastSql(potomek, bible, kniha);
-
-          nadpisy.Append(sqlCast.Item1);
-          verse.Append(sqlCast.Item2);
+          VygenerovatCastSql(potomek, bible, kniha);
         }
+      }
+      else if (cast is RadekPoezie)
+      {
+        foreach (CastTextu potomek in cast.Potomci)
+        {
+          VygenerovatCastSql(potomek, bible, kniha);
+        }
+
+        AktualniTextVerse += "<br/>";
+      }
+      else if (cast is Odstavec)
+      {
+        foreach (CastTextu potomek in cast.Potomci)
+        {
+          VygenerovatCastSql(potomek, bible, kniha);
+        }
+      }
+      else if (cast is FormatovaniTextu)
+      {
+        if ((cast as FormatovaniTextu).Kurziva)
+        {
+          AktualniTextVerse += "<i>";
+
+          foreach (CastTextu potomek in cast.Potomci)
+          {
+            VygenerovatCastSql(potomek, bible, kniha);
+          }
+
+          AktualniTextVerse += "</i>";
+        }
+      }
+      else if (cast is CastPoezie)
+      {
+        AktualniTextVerse += $"<h5>{cast.TextovaData}</h5>\n";
+      }
+      else if (cast is CastTextuSTextem)
+      {
+        AktualniTextVerse += cast.TextovaData;
       }
       else if (cast is Kniha)
       {
         foreach (CastTextu potomek in cast.Potomci)
         {
-          Tuple<StringBuilder, StringBuilder> sqlCast = VygenerovatCastSql(potomek, bible, kniha);
+          PridatRozpracovanyVers();
+          PocitadloVerse = 1;
 
-          nadpisy.Append(sqlCast.Item1);
-          verse.Append(sqlCast.Item2);
+          VygenerovatCastSql(potomek, bible, kniha);
         }
       }
-
-      return new Tuple<StringBuilder, StringBuilder>(nadpisy, verse);
     }
 
-    private void VlozitSqlNadpis(StringBuilder nadpisy, string nadpis)
+    private void PridatRozpracovanyVers()
     {
-      nadpisy.AppendLine($"INSERT INTO bible_nadpisy (id, kniha_id, kapitola, vers, text, offset) " +
-                         $"VALUES({PocitadloNadpisu}, {PoradiKnihy}, '{PocitadloKapitol}', '{PocitadloVerse}', '{nadpis}', 0),");
+      if (!string.IsNullOrEmpty(AktualniTextVerse))
+      {
+        Verse.Add($"({PoradiKnihy}, '{PocitadloKapitol}', '{PocitadloVerse}', '{AktualniTextVerse}', " +
+                  $"'{OstripovatVers(AktualniTextVerse)}', {GlobalniPocitadloVersu++})");
+        PocitadloVerse++;
+      }
+
+      AktualniTextVerse = string.Empty;
+    }
+
+    private object OstripovatVers(string aktualniTextVerse)
+    {
+      return Regex.Replace(aktualniTextVerse, "[^\\x00-\\x7f]", string.Empty);
+    }
+
+    private void VlozitSqlNadpis(string nadpis)
+    {
+      Nadpisy.Add($"INSERT INTO bible_nadpisy (id, kniha_id, kapitola, vers, text, offset) " +
+                  $"VALUES({PocitadloNadpisu}, {PoradiKnihy}, '{PocitadloKapitol}', '{PocitadloVerse}', '{nadpis}', 0);\n");
+
+      PocitadloNadpisu++;
     }
 
     #endregion
