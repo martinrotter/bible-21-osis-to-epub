@@ -133,8 +133,11 @@ namespace BibleDoEpubu
     {
       if (cast is HlavniCastKnihy || cast is CastKnihy)
       {
-        PridatRozpracovanyVers();
-        PocitadloVerse = 1;
+        if (cast is HlavniCastKnihy)
+        {
+          PridatRozpracovanyVers();
+          PocitadloVerse = 1;
+        }
 
         VlozitSqlNadpis(cast is HlavniCastKnihy knihy ? knihy.Nadpis : ((CastKnihy) cast).Nadpis);
 
@@ -203,10 +206,11 @@ namespace BibleDoEpubu
       {
         foreach (CastTextu potomek in cast.Potomci)
         {
-          PridatRozpracovanyVers();
           PocitadloVerse = 1;
 
           VygenerovatCastSql(potomek, bible, kniha);
+
+          PridatRozpracovanyVers();
         }
       }
     }
